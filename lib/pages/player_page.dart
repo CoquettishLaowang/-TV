@@ -1,15 +1,21 @@
 /// 播放器页面模块
-/// 视频全屏播放页面，优化TV端视频播放体验
+/// 视频全屏播放页面，优化视频播放体验
+/// TV端：大图标控制栏适配遥控器操作
+/// 手机端：标准图标控制栏适配触摸操作
 /// 被平台页面调用
 
 import 'package:flutter/material.dart';
 
+import '../core/responsive/responsive_adapter.dart';
 import '../core/theme/tv_dimensions.dart';
 import '../web/tv_webview.dart';
 import '../web/webview_controller.dart';
 
+/// 播放器控制栏高度增量（在底部导航栏基础上加额外空间）
+const double _controlBarExtraHeight = 40.0;
+
 /// 播放器页面
-/// 全屏展示视频内容，支持TV遥控器控制播放/暂停/快进等
+/// 全屏展示视频内容，支持遥控器控制和触摸控制播放/暂停/快进等
 class PlayerPage extends StatefulWidget {
   /// 视频URL
   final String videoUrl;
@@ -51,13 +57,18 @@ class _PlayerPageState extends State<PlayerPage> {
           widget.onGoBack();
         }
       },
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Stack(
-          children: [
-            _buildVideoPlayer(),
-            if (_showControls) _buildControlOverlay(),
-          ],
+      child: GestureDetector(
+        // 点击切换控制栏显示/隐藏
+        onTap: toggleControls,
+        behavior: HitTestBehavior.translucent,
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          body: Stack(
+            children: [
+              _buildVideoPlayer(),
+              if (_showControls) _buildControlOverlay(context),
+            ],
+          ),
         ),
       ),
     );
@@ -76,15 +87,20 @@ class _PlayerPageState extends State<PlayerPage> {
   }
 
   /// 构建控制栏覆盖层
+  /// 参数：context - 构建上下文
   /// 返回：Widget - 播放控制栏
   /// 副作用：无
-  Widget _buildControlOverlay() {
+  Widget _buildControlOverlay(BuildContext context) {
+    final ResponsiveConfig responsiveConfig = ResponsiveAdapter.of(context);
+    final double barHeight = kBottomBarHeight + _controlBarExtraHeight;
+    final double iconSize = responsiveConfig.iconSizeLarge;
+
     return Positioned(
       bottom: 0,
       left: 0,
       right: 0,
       child: Container(
-        height: kBottomBarHeight + 40,
+        height: barHeight,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -95,50 +111,57 @@ class _PlayerPageState extends State<PlayerPage> {
             ],
           ),
         ),
-        padding: const EdgeInsets.symmetric(
-          horizontal: kPageHorizontalPadding,
+        padding: EdgeInsets.symmetric(
+          horizontal: responsiveConfig.pageHorizontalPadding,
           vertical: 12,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(
+            _buildControlButton(
+              icon: Icons.play_arrow,
+              iconSize: iconSize,
               onPressed: _handlePlayPause,
-              icon: const Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-                size: kIconSizeLarge,
-              ),
             ),
-            const SizedBox(width: 24),
-            IconButton(
+            SizedBox(width: responsiveConfig.cardHorizontalSpacing),
+            _buildControlButton(
+              icon: Icons.replay_10,
+              iconSize: iconSize,
               onPressed: _handleRewind,
-              icon: const Icon(
-                Icons.replay_10,
-                color: Colors.white,
-                size: kIconSizeLarge,
-              ),
             ),
-            const SizedBox(width: 24),
-            IconButton(
+            SizedBox(width: responsiveConfig.cardHorizontalSpacing),
+            _buildControlButton(
+              icon: Icons.forward_10,
+              iconSize: iconSize,
               onPressed: _handleForward,
-              icon: const Icon(
-                Icons.forward_10,
-                color: Colors.white,
-                size: kIconSizeLarge,
-              ),
             ),
-            const SizedBox(width: 24),
-            IconButton(
+            SizedBox(width: responsiveConfig.cardHorizontalSpacing),
+            _buildControlButton(
+              icon: Icons.fullscreen_exit,
+              iconSize: iconSize,
               onPressed: widget.onGoBack,
-              icon: const Icon(
-                Icons.fullscreen_exit,
-                color: Colors.white,
-                size: kIconSizeLarge,
-              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// 构建单个控制按钮
+  /// 参数：icon - 图标 / iconSize - 图标尺寸 / onPressed - 点击回调
+  /// 返回：Widget - 图标按钮
+  /// 副作用：无
+  Widget _buildControlButton({
+    required IconData icon,
+    required double iconSize,
+    required VoidCallback? onPressed,
+  }) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: Icon(
+        icon,
+        color: Colors.white,
+        size: iconSize,
       ),
     );
   }

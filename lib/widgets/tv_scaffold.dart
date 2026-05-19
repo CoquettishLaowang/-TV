@@ -1,13 +1,15 @@
 /// TV脚手架组件模块
-/// 提供TV端页面的基础布局结构，包含导航栏、内容区域和底部栏
+/// 提供TV端和手机端页面的基础布局结构，包含导航栏、内容区域和底部栏
+/// TV端：大间距、大字号，适配遥控器导航
+/// 手机端：紧凑布局、标准字号，适配触摸交互
 /// 被所有页面组件使用作为顶层布局容器
 
 import 'package:flutter/material.dart';
 
-import '../../core/theme/tv_dimensions.dart';
+import '../../core/responsive/responsive_adapter.dart';
 
 /// TV脚手架布局组件
-/// 提供统一的TV页面布局结构，自动处理安全区域和TV布局规范
+/// 提供统一的页面布局结构，自动根据不同设备调整内边距和字号
 class TvScaffold extends StatelessWidget {
   /// 页面标题
   final String? title;
@@ -24,7 +26,7 @@ class TvScaffold extends StatelessWidget {
   /// 背景颜色
   final Color? backgroundColor;
 
-  /// 是否应用TV安全区域内边距
+  /// 是否应用安全区域内边距
   final bool applySafeArea;
 
   /// 构造函数
@@ -61,17 +63,21 @@ class TvScaffold extends StatelessWidget {
       return null;
     }
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final ResponsiveConfig responsiveConfig = ResponsiveAdapter.of(context);
+
     return PreferredSize(
-      preferredSize: Size(double.infinity, kNavBarHeight),
+      preferredSize: Size(double.infinity, responsiveConfig.navBarHeight),
       child: Container(
-        height: kNavBarHeight,
-        padding: kTvSafePadding,
+        height: responsiveConfig.navBarHeight,
+        padding: EdgeInsets.symmetric(
+          horizontal: responsiveConfig.pageHorizontalPadding,
+        ),
         alignment: Alignment.centerLeft,
         child: Text(
           title!,
           style: TextStyle(
             color: colorScheme.onSurface,
-            fontSize: 28,
+            fontSize: responsiveConfig.titleFontSize,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -87,8 +93,9 @@ class TvScaffold extends StatelessWidget {
     if (!applySafeArea) {
       return body;
     }
+    final EdgeInsets safePadding = ResponsiveAdapter.safePadding(context);
     return Padding(
-      padding: kTvSafePadding,
+      padding: safePadding,
       child: body,
     );
   }

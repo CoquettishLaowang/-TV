@@ -1,13 +1,15 @@
 /// 设置页面模块
 /// 应用设置页面，提供主题切换、缓存清理、关于信息等
 /// 被导航栏的设置入口调用
+/// TV端：大间距、大字号适配遥控器导航
+/// 手机端：紧凑布局、标准字号适配触摸交互
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/constants/app_constants.dart';
-import '../core/theme/tv_dimensions.dart';
 import '../core/performance/memory_manager.dart';
+import '../core/responsive/responsive_adapter.dart';
 import '../widgets/tv_focusable.dart';
 import '../widgets/tv_scaffold.dart';
 
@@ -35,7 +37,7 @@ class SettingItem {
 }
 
 /// 设置页面
-/// 展示应用设置选项，支持TV遥控器导航
+/// 展示应用设置选项，支持TV遥控器导航和手机触摸点击
 class SettingsPage extends StatefulWidget {
   /// 构造函数
   const SettingsPage({super.key});
@@ -76,17 +78,18 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final ResponsiveConfig responsiveConfig = ResponsiveAdapter.of(context);
     final List<SettingItem> settings = _buildSettingsList();
 
     return TvScaffold(
       title: '设置',
       body: ListView.builder(
-        padding: const EdgeInsets.symmetric(
-          horizontal: kPageHorizontalPadding,
+        padding: EdgeInsets.symmetric(
+          horizontal: responsiveConfig.pageHorizontalPadding,
         ),
         itemCount: settings.length,
         itemBuilder: (BuildContext context, int index) {
-          return _buildSettingItem(settings[index], colorScheme);
+          return _buildSettingItem(settings[index], colorScheme, responsiveConfig);
         },
       ),
     );
@@ -129,17 +132,20 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   /// 构建单个设置项
-  /// 参数：item - 设置项数据 / colorScheme - 颜色方案
+  /// 参数：item - 设置项数据 / colorScheme - 颜色方案 / responsiveConfig - 响应式配置
   /// 返回：Widget - 设置项组件
   /// 副作用：无
-  Widget _buildSettingItem(SettingItem item, ColorScheme colorScheme) {
+  Widget _buildSettingItem(
+      SettingItem item, ColorScheme colorScheme, ResponsiveConfig responsiveConfig) {
+    final double settingsItemHeight = responsiveConfig.navBarItemHeight + 16;
+
     return TvFocusable(
       onConfirm: item.onTap,
       margin: const EdgeInsets.only(bottom: 8),
       child: Container(
-        height: kSettingsItemHeight,
-        padding: const EdgeInsets.symmetric(
-          horizontal: kSettingsItemHorizontalPadding,
+        height: settingsItemHeight,
+        padding: EdgeInsets.symmetric(
+          horizontal: responsiveConfig.pageHorizontalPadding * 0.75,
         ),
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainerHighest,
@@ -147,7 +153,11 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         child: Row(
           children: [
-            Icon(item.icon, size: kIconSizeMedium, color: colorScheme.primary),
+            Icon(
+              item.icon,
+              size: responsiveConfig.iconSizeMedium,
+              color: colorScheme.primary,
+            ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -158,7 +168,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     item.title,
                     style: TextStyle(
                       color: colorScheme.onSurface,
-                      fontSize: 18,
+                      fontSize: responsiveConfig.bodyFontSize + 2,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -167,7 +177,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       item.subtitle!,
                       style: TextStyle(
                         color: colorScheme.onSurface.withValues(alpha: 0.6),
-                        fontSize: 14,
+                        fontSize: responsiveConfig.bodyFontSize - 2,
                       ),
                     ),
                 ],

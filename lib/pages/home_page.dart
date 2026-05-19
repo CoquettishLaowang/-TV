@@ -1,12 +1,13 @@
 /// 首页模块
 /// 应用主页面，展示所有支持的视频平台入口
-/// 用户可通过遥控器选择平台进入
+/// TV端：用户通过遥控器选择平台进入，大网格布局
+/// 手机端：用户通过触摸点击选择平台，双列网格布局
 
 import 'package:flutter/material.dart';
 
 import '../core/base/base_adapter.dart';
 import '../core/constants/app_constants.dart';
-import '../core/theme/tv_dimensions.dart';
+import '../core/responsive/responsive_adapter.dart';
 import '../adapters/adapter_registry.dart';
 import '../models/platform_info.dart';
 import '../widgets/tv_focusable.dart';
@@ -50,6 +51,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final ResponsiveConfig responsiveConfig = ResponsiveAdapter.of(context);
 
     return TvScaffold(
       title: kAppName,
@@ -61,33 +63,50 @@ class _HomePageState extends State<HomePage> {
             selectedItemId: _selectedNavId,
             onItemSelected: _handleNavItemSelected,
           ),
-          const SizedBox(height: kCardVerticalSpacing),
+          SizedBox(height: responsiveConfig.cardVerticalSpacing),
           Expanded(
-            child: _buildPlatformGrid(colorScheme),
+            child: _buildPlatformGrid(colorScheme, responsiveConfig),
           ),
         ],
       ),
     );
   }
 
-  /// 构建平台选择网格
-  /// 参数：colorScheme - 颜色方案
+  /// 构建平台选择网格（响应式列数）
+  /// 参数：colorScheme - 颜色方案 / responsiveConfig - 响应式配置
   /// 返回：Widget - 平台网格布局
   /// 副作用：无
-  Widget _buildPlatformGrid(ColorScheme colorScheme) {
-    return GridView.builder(
-      padding: const EdgeInsets.symmetric(
-        horizontal: kPageHorizontalPadding,
-      ),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: kHomeGridColumns,
-        childAspectRatio: kVideoCardAspectRatio + 0.4,
-        crossAxisSpacing: kCardHorizontalSpacing,
-        mainAxisSpacing: kCardVerticalSpacing,
-      ),
-      itemCount: _adapters.length,
-      itemBuilder: (BuildContext context, int index) {
-        return _buildPlatformCard(_adapters[index]);
+  Widget _buildPlatformGrid(
+      ColorScheme colorScheme, ResponsiveConfig responsiveConfig) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        // 根据可用宽度动态计算列数，而非使用固定列数
+        final int columns =
+            ResponsiveConfig.calculateGridColumns(constraints.maxWidth);
+        // 根据可用宽度和列数动态计算卡片宽度
+        final double availableWidth = constraints.maxWidth -
+            responsiveConfig.pageHorizontalPadding * 2;
+        final double cardWidth = (availableWidth -
+                (columns - 1) * responsiveConfig.cardHorizontalSpacing) /
+            columns;
+        final double cardHeight =
+            cardWidth / responsiveConfig.videoCardAspectRatio + 60;
+
+        return GridView.builder(
+          padding: EdgeInsets.symmetric(
+            horizontal: responsiveConfig.pageHorizontalPadding,
+          ),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: columns,
+            childAspectRatio: cardWidth / cardHeight,
+            crossAxisSpacing: responsiveConfig.cardHorizontalSpacing,
+            mainAxisSpacing: responsiveConfig.cardVerticalSpacing,
+          ),
+          itemCount: _adapters.length,
+          itemBuilder: (BuildContext context, int index) {
+            return _buildPlatformCard(_adapters[index]);
+          },
+        );
       },
     );
   }
@@ -106,7 +125,8 @@ class _HomePageState extends State<HomePage> {
       child: Container(
         decoration: BoxDecoration(
           color: brandColor.withValues(alpha: 0.15),
-          borderRadius: BorderRadius.circular(kCardBorderRadius),
+          borderRadius:
+              BorderRadius.circular(kCardBorderRadius),
           border: Border.all(
             color: brandColor.withValues(alpha: 0.3),
             width: 2,
@@ -119,9 +139,11 @@ class _HomePageState extends State<HomePage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Flexible(
-                child: Icon(
-                  Icons.play_circle_filled,
-                  color: brandColor,
+                child: FittedBox(
+                  child: Icon(
+                    Icons.play_circle_filled,
+                    color: brandColor,
+                  ),
                 ),
               ),
               const SizedBox(height: 4),
