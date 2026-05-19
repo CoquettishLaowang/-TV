@@ -1,12 +1,16 @@
 /// 内存管理模块
-/// 监控和优化应用内存使用，确保TV端内存占用在合理范围内
+/// 监控和优化应用内存使用，通过进程RSS和图片缓存组合估算内存占用
+/// 确保低性能TV端内存占用不超过设备可用内存的60%
 /// 被应用初始化代码和性能监控模块使用
 
+import 'dart:io' show ProcessInfo;
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/painting.dart';
 
 import '../constants/app_constants.dart';
 import '../constants/performance_constants.dart';
+import 'cache_manager.dart';
 
 /// 内存快照记录
 /// 记录某一时刻的内存使用情况
@@ -41,13 +45,14 @@ enum MemoryTrend {
 }
 
 /// 内存管理器
-/// 定期采集内存快照，监控内存使用趋势，在内存过高时触发优化措施
+/// 定期采集进程RSS内存快照，结合图片缓存状态综合评估内存健康度
+/// 内存过高时自动触发图片缓存清理和WebView回收
 class MemoryManager extends ChangeNotifier {
   /// 内存快照历史记录
   final List<MemorySnapshot> _snapshots = [];
 
   /// 获取当前内存使用量（MB）
-  /// 返回：double - 当前内存使用量
+  /// 返回：double - 当前进程RSS内存
   /// 副作用：无
   double get currentMemoryMb {
     if (_snapshots.isEmpty) {
@@ -63,14 +68,14 @@ class MemoryManager extends ChangeNotifier {
       List<MemorySnapshot>.unmodifiable(_snapshots);
 
   /// 是否内存使用超过警告阈值
-  /// 返回：bool - 是否超过阈值
+  /// 返回：bool - 是否超过kMemoryWarningThresholdMb
   /// 副作用：无
   bool get isMemoryWarning => currentMemoryMb >= kMemoryWarningThresholdMb;
 
   /// 采集当前内存快照
-  /// 通过Dart VM服务获取内存信息
+  /// 通过进程RSS获取真实内存占用，结合图片缓存状态
   /// 返回：MemorySnapshot - 当前内存快照
-  /// 副作用：添加到快照历史，可能触发内存优化
+  /// 副作用：添加到快照历史，可能触发内存优化措施
   MemorySnapshot captureSnapshot() {
     final MemorySnapshot snapshot = _createSnapshot();
     _addSnapshot(snapshot);
@@ -79,27 +84,41 @@ class MemoryManager extends ChangeNotifier {
   }
 
   /// 创建内存快照
+  /// 优先使用进程RSS（精确值），无法获取时使用图片缓存估算
   /// 返回：MemorySnapshot - 新的内存快照
   /// 副作用：无
   MemorySnapshot _createSnapshot() {
-    final double memoryMb = _estimateMemoryUsage();
+    final double memoryMb = _readProcessMemoryMb();
     return MemorySnapshot(
       usedMemoryMb: memoryMb,
       timestamp: DateTime.now().millisecondsSinceEpoch,
     );
   }
 
-  /// 估算当前内存使用量（MB）
-  /// 使用Dart VM的内存统计信息
+  /// 读取进程RSS内存占用（MB）
+  /// ProcessInfo.currentRss返回驻留集大小（字节），反映进程实际物理内存占用
+  /// dart:io不可用时回退到图片缓存估算
+  /// 返回：double - 进程内存占用（MB）
+  /// 副作用：无
+  double _readProcessMemoryMb() {
+    try {
+      final int rssBytes = ProcessInfo.currentRss;
+      return rssBytes / (1024 * 1024);
+    } catch (_) {
+      return _estimateMemoryFromImageCache();
+    }
+  }
+
+  /// 通过图片缓存估算内存使用（MB）
+  /// 作为dart:io不可用时的回退方案（如Web平台）
+  /// 估算公式：图片缓存数量 × 每张平均大小（约2MB）
   /// 返回：double - 估算的内存使用量
   /// 副作用：无
-  double _estimateMemoryUsage() {
-    try {
-      final int heapSize = Developer.currentHeapSize;
-      return heapSize / (1024 * 1024);
-    } catch (_) {
-      return 0;
-    }
+  double _estimateMemoryFromImageCache() {
+    final ImageCache imageCache = PaintingBinding.instance.imageCache;
+    final int cachedCount = imageCache.currentSize;
+    const double estimatedPerImageMb = 2.0;
+    return cachedCount * estimatedPerImageMb;
   }
 
   /// 添加快照到历史记录
@@ -122,9 +141,11 @@ class MemoryManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// 建议执行垃圾回收
-  /// 通过清理缓存释放内存
-  /// 副作用：可能触发缓存清理操作
+  /// 建议执行垃圾回收操作
+  /// 根据内存压力分级处理：
+  ///   - 超过GC阈值：清理图片缓存并缩减缓存容量
+  ///   - 超过警告阈值但未达GC阈值：仅通知监听器
+  /// 副作用：可能清除图片缓存、缩减缓存上限
   void _suggestGarbageCollection() {
     if (currentMemoryMb >= kGcTriggerThresholdMb) {
       _performImageCacheCleanup();
@@ -132,15 +153,15 @@ class MemoryManager extends ChangeNotifier {
   }
 
   /// 清理图片缓存以释放内存
-  /// 副作用：清除Flutter图片缓存
+  /// 委托CacheManager执行统一的缓存清理和容量降级策略
+  /// 副作用：清除Flutter全局图片缓存，降低缓存上限至kImagePreCacheCount
   void _performImageCacheCleanup() {
-    final ImageCache imageCache = PaintingBinding.instance.imageCache;
-    imageCache.clear();
-    imageCache.maximumSize = kImagePreCacheCount;
+    CacheManager.clearImageCache();
+    CacheManager.reduceCacheLimitForLowMemory();
   }
 
   /// 计算平均内存使用量
-  /// 参数：sampleCount - 采样数量，默认取最近10次
+  /// 参数：sampleCount - 采样数量，默认取最近kFrameSampleWindowSize次
   /// 返回：double - 平均内存使用量（MB）
   /// 副作用：无
   double calculateAverageMemory([int sampleCount = kFrameSampleWindowSize]) {
@@ -158,6 +179,7 @@ class MemoryManager extends ChangeNotifier {
   }
 
   /// 获取内存使用趋势
+  /// 比较最近3次采样与较早采样的平均值差异
   /// 返回：MemoryTrend - 内存趋势（上升/稳定/下降）
   /// 副作用：无
   MemoryTrend getMemoryTrend() {
@@ -166,7 +188,7 @@ class MemoryManager extends ChangeNotifier {
     }
     final double recentAvg = calculateAverageMemory(3);
     final double olderAvg = calculateAverageMemory(
-      _snapshots.length.clamp(3, 10),
+      _snapshots.length.clamp(3, kFrameSampleWindowSize),
     );
     final double difference = recentAvg - olderAvg;
     const double trendThreshold = 10.0;
@@ -193,26 +215,5 @@ class MemoryManager extends ChangeNotifier {
   /// 副作用：清空快照列表
   void clearSnapshots() {
     _snapshots.clear();
-  }
-}
-
-/// Developer工具类，封装Dart VM内存查询
-class Developer {
-  /// 获取当前Dart堆大小（字节）
-  /// 返回：int - 堆大小字节数
-  /// 副作用：无
-  static int get currentHeapSize {
-    try {
-      return _queryHeapSize();
-    } catch (_) {
-      return 0;
-    }
-  }
-
-  /// 查询Dart堆大小
-  /// 返回：int - 堆大小
-  /// 副作用：无
-  static int _queryHeapSize() {
-    return 0;
   }
 }

@@ -54,20 +54,22 @@ class TvNavBar extends StatelessWidget {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final ResponsiveConfig responsiveConfig = ResponsiveAdapter.of(context);
 
-    return Container(
-      height: responsiveConfig.navBarHeight,
-      padding: EdgeInsets.symmetric(
-        horizontal: responsiveConfig.pageHorizontalPadding,
-      ),
-      child: Row(
-        children: _buildNavItems(colorScheme, responsiveConfig),
+    return RepaintBoundary(
+      child: Container(
+        height: responsiveConfig.navBarHeight,
+        padding: EdgeInsets.symmetric(
+          horizontal: responsiveConfig.pageHorizontalPadding,
+        ),
+        child: Row(
+          children: _buildNavItems(colorScheme, responsiveConfig),
+        ),
       ),
     );
   }
 
   /// 构建导航项列表
   /// 参数：colorScheme - 颜色方案 / responsiveConfig - 响应式配置
-  /// 返回：List<Widget> - 导航项组件列表
+  /// 返回：List - 导航项组件列表
   /// 副作用：无
   List<Widget> _buildNavItems(
       ColorScheme colorScheme, ResponsiveConfig responsiveConfig) {

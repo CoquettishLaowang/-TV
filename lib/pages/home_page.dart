@@ -104,7 +104,9 @@ class _HomePageState extends State<HomePage> {
           ),
           itemCount: _adapters.length,
           itemBuilder: (BuildContext context, int index) {
-            return _buildPlatformCard(_adapters[index]);
+            return RepaintBoundary(
+              child: _buildPlatformCard(_adapters[index]),
+            );
           },
         );
       },

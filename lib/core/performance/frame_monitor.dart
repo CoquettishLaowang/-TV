@@ -78,7 +78,8 @@ class FrameMonitor extends ChangeNotifier {
   List<FrameSample> get samples => List<FrameSample>.unmodifiable(_samples);
 
   /// 开始帧率监控
-  /// 副作用：注册帧回调，开始采集帧率数据
+  /// persistent frame callback仅注册一次，SchedulerBinding每帧自动调用
+  /// 副作用：注册持久帧回调，开始采集帧率数据
   void startMonitoring() {
     if (_isMonitoring) {
       return;
@@ -94,13 +95,13 @@ class FrameMonitor extends ChangeNotifier {
   }
 
   /// 帧回调处理
+  /// persistent callback由SchedulerBinding自动每帧调用，无需重复注册
   /// 参数：durationStamp - 帧时间戳
   /// 副作用：计算帧率，添加采样记录
   void _onFrame(Duration durationStamp) {
     if (!_isMonitoring) {
       return;
     }
-    SchedulerBinding.instance.addPersistentFrameCallback(_onFrame);
 
     final int currentTimestamp = durationStamp.inMicroseconds;
     if (_lastFrameTimestamp == null) {

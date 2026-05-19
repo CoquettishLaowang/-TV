@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 
 import 'app.dart';
+import 'core/performance/cache_manager.dart';
 import 'core/performance/startup_optimizer.dart';
 
 /// 全局启动优化器实例
@@ -16,6 +17,9 @@ void main() {
   startupOptimizer.markStartupBegin();
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 初始化图片缓存策略：TV端限制80张/50MB，防止缓存膨胀
+  CacheManager.initializeCachePolicy();
 
   startupOptimizer.markPhaseCompleted(StartupPhase.preInit);
 

@@ -2,7 +2,7 @@
 /// 封装WebView的核心控制逻辑，包括页面加载、CSS注入、JS桥接通信
 /// 被TV WebView组件和平台适配器使用
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'js_bridge.dart';
@@ -57,12 +57,14 @@ class TvWebViewController extends ChangeNotifier {
   }
 
   /// 配置WebView基础设置
-  /// 副作用：设置JavaScript启用、User-Agent等
+  /// 包括JavaScript模式、导航代理、背景色（避免白屏闪烁）和缓存HTTP头
+  /// 副作用：设置WebView各项配置参数
   void _configureWebView() {
     if (_webViewController == null) {
       return;
     }
     _webViewController!.setJavaScriptMode(JavaScriptMode.unrestricted);
+    _webViewController!.setBackgroundColor(Colors.black);
     _webViewController!.setNavigationDelegate(
       NavigationDelegate(
         onPageStarted: _handlePageStarted,
