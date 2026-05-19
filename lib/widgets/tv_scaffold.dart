@@ -62,7 +62,7 @@ class TvScaffold extends StatelessWidget {
     }
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return PreferredSize(
-      preferredSize: const Size.fromHeight(kNavBarHeight),
+      preferredSize: Size(double.infinity, kNavBarHeight),
       child: Container(
         height: kNavBarHeight,
         padding: kTvSafePadding,
