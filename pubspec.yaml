@@ -1,0 +1,39 @@
+name: tv_video_hub
+description: "TV端视频平台适配应用 - 将主流视频平台网页适配为TV大屏版本"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  webview_flutter: ^4.13.0
+  webview_flutter_android: ^4.7.0
+  provider: ^6.1.2
+  shared_preferences: ^2.3.4
+  connectivity_plus: ^6.1.4
+  url_launcher: ^6.3.1
+  dio: ^5.7.0
+  html: ^0.15.5
+  uuid: ^4.5.1
+  intl: ^0.20.2
+  path_provider: ^2.1.5
+  flutter_hooks: ^0.20.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  mockito: ^5.4.5
+  build_runner: ^2.4.14
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/config/
+    - assets/icons/

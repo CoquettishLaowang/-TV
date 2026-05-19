@@ -1,0 +1,39 @@
+{
+  "platforms": [
+    {
+      "id": "iqiyi",
+      "name": "爱奇艺",
+      "baseUrl": "https://www.iqiyi.com",
+      "icon": "assets/icons/iqiyi.png",
+      "color": "#00BE06"
+    },
+    {
+      "id": "tencent",
+      "name": "腾讯视频",
+      "baseUrl": "https://v.qq.com",
+      "icon": "assets/icons/tencent.png",
+      "color": "#FF6A00"
+    },
+    {
+      "id": "bilibili",
+      "name": "哔哩哔哩",
+      "baseUrl": "https://www.bilibili.com",
+      "icon": "assets/icons/bilibili.png",
+      "color": "#00A1D6"
+    },
+    {
+      "id": "youku",
+      "name": "优酷",
+      "baseUrl": "https://www.youku.com",
+      "icon": "assets/icons/youku.png",
+      "color": "#1A91FF"
+    },
+    {
+      "id": "douyin",
+      "name": "抖音",
+      "baseUrl": "https://www.douyin.com",
+      "icon": "assets/icons/douyin.png",
+      "color": "#161823"
+    }
+  ]
+}
