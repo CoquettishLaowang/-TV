@@ -32,6 +32,12 @@ dev_dependencies:
   integration_test:
     sdk: flutter
 
+dependency_overrides:
+  jni:
+    path: packages/jni
+  jni_flutter:
+    path: packages/jni_flutter
+
 flutter:
   uses-material-design: true
   assets:

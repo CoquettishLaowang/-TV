@@ -1,6 +1,7 @@
 /// 响应式布局适配器模块
 /// 自动检测设备类型（电视/手机/平板），提供响应式尺寸配置
 /// 被所有UI组件引用，实现多设备自适应布局
+library;
 
 import 'package:flutter/widgets.dart';
 

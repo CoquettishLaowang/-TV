@@ -1,6 +1,7 @@
 /// TV加载组件模块
 /// 提供TV端加载状态展示组件，包括加载指示器、空状态和错误状态
 /// 被所有需要异步加载的页面使用
+library;
 
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,7 @@
 /// 优酷平台适配器
 /// 实现优酷网页端的TV大屏适配逻辑
 /// 被适配器注册中心管理
+library;
 
 import '../core/base/base_adapter.dart';
 import '../core/constants/platform_constants.dart';
@@ -24,13 +25,12 @@ class YoukuAdapter extends BasePlatformAdapter {
   AdaptationConfig get adaptationConfig => AdaptationConfig(
         platformId: kPlatformYouku,
         rules: _buildRules(),
-        configVersion: 1,
       );
 
   /// 构建优酷适配规则列表
   List<AdaptationRule> _buildRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'youku_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .yk-sidebar, .side-nav',
@@ -38,7 +38,7 @@ class YoukuAdapter extends BasePlatformAdapter {
         cssValue: 'none !important',
         priority: 15,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'youku_resize_nav',
         ruleType: AdaptationRuleType.modifyFontSize,
         cssSelector: '.header, .yk-header',
@@ -46,7 +46,7 @@ class YoukuAdapter extends BasePlatformAdapter {
         cssValue: '22px',
         priority: 12,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'youku_resize_cards',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.video-card, .yk-video-card',
@@ -54,7 +54,7 @@ class YoukuAdapter extends BasePlatformAdapter {
         cssValue: 'scale(1.15)',
         priority: 10,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'youku_hide_ad',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.ad-banner, .yk-ad',
@@ -66,7 +66,7 @@ class YoukuAdapter extends BasePlatformAdapter {
   }
 
   @override
-  String getTvHomePageUrl() => '$kYoukuBaseUrl';
+  String getTvHomePageUrl() => kYoukuBaseUrl;
 
   @override
   String? handleNavigationRequest(String requestedUrl) {

@@ -1,6 +1,7 @@
 /// 应用入口模块
 /// Flutter应用的主入口点，负责初始化和启动应用
 /// 执行启动优化、绑定初始化等操作
+library;
 
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,7 @@
 /// 按键事件处理模块
 /// 处理TV遥控器的按键输入，将物理按键映射为应用内的导航动作
 /// 被TV导航控制器调用
+library;
 
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';

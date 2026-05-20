@@ -1,6 +1,7 @@
 /// CSS注入器模块
 /// 负责将适配规则转换为CSS代码并注入到WebView中
 /// 被平台适配器和WebView控制器使用
+library;
 
 import '../models/adaptation_config.dart';
 import '../web/webview_controller.dart';

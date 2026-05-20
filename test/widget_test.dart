@@ -1,5 +1,6 @@
 /// 应用基础Widget测试
 /// 验证核心Widget组件的基本渲染功能
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,7 +30,6 @@ void main() {
         home: Scaffold(
           body: TvLoading(
             state: LoadingState.empty,
-            emptyMessage: testMessage,
           ),
         ),
       ),

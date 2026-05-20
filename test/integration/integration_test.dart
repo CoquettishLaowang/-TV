@@ -1,5 +1,6 @@
 /// 集成测试
 /// 验证各模块之间的协作和数据流转
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 

@@ -2,6 +2,7 @@
 /// 提供水平排列的导航项列表，支持TV遥控器焦点导航和手机触摸点击
 /// 根据设备类型自动调整导航项大小和间距
 /// 被TvScaffold和各页面使用
+library;
 
 import 'package:flutter/material.dart';
 

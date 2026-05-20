@@ -1,6 +1,7 @@
 /// TV导航控制器模块
 /// 统一管理TV遥控器导航逻辑，协调按键事件、焦点管理和页面导航
 /// 被App根组件和各页面使用
+library;
 
 import 'package:flutter/widgets.dart';
 

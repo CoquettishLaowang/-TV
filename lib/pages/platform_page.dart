@@ -1,6 +1,7 @@
 /// 平台页面模块
 /// 展示选定视频平台的WebView内容，应用TV适配规则
 /// 被首页导航调用
+library;
 
 import 'package:flutter/material.dart';
 

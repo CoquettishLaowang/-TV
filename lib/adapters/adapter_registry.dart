@@ -1,6 +1,7 @@
 /// 适配器注册中心模块
 /// 管理所有视频平台适配器的注册、查询和生命周期
 /// 被应用初始化代码和页面组件使用
+library;
 
 import '../core/base/base_adapter.dart';
 import 'iqiyi_adapter.dart';

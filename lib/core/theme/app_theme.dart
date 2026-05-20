@@ -1,6 +1,7 @@
 /// 应用主题配置模块
 /// 定义TV端应用的明暗主题、颜色方案、文字样式等
 /// 被App根组件和所有页面引用以保持视觉一致性
+library;
 
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,6 @@ import 'package:flutter/material.dart';
 ThemeData buildLightTheme() {
   final ColorScheme colorScheme = ColorScheme.fromSeed(
     seedColor: const Color(0xFF1A91FF),
-    brightness: Brightness.light,
   );
   return _buildBaseTheme(colorScheme);
 }

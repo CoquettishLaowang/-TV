@@ -2,6 +2,7 @@
 /// 管理CSS适配规则的加载、匹配和动态更新
 /// 当视频平台网页格式变化时，自动检测并调整适配规则
 /// 被平台适配器和WebView控制器使用
+library;
 
 import '../models/adaptation_config.dart';
 
@@ -44,7 +45,6 @@ class RuleEngine {
       _configCache[platformId] = AdaptationConfig(
         platformId: platformId,
         rules: allRules,
-        configVersion: 1,
         lastUpdatedTimestamp: DateTime.now().millisecondsSinceEpoch,
       );
     }
@@ -55,7 +55,7 @@ class RuleEngine {
   /// 副作用：无
   List<AdaptationRule> _buildCommonRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'common_hide_scrollbar',
         ruleType: AdaptationRuleType.customCss,
         cssSelector: '::-webkit-scrollbar',
@@ -63,7 +63,7 @@ class RuleEngine {
         cssValue: 'none',
         priority: 10,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'common_increase_font',
         ruleType: AdaptationRuleType.modifyFontSize,
         cssSelector: 'body',
@@ -71,7 +71,7 @@ class RuleEngine {
         cssValue: '20px',
         priority: 5,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'common_hide_popup',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.popup, .modal, .dialog-overlay, .ad-layer',
@@ -79,7 +79,7 @@ class RuleEngine {
         cssValue: 'none !important',
         priority: 20,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'common_enlarge_buttons',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: 'button, a.btn, .btn',
@@ -87,7 +87,7 @@ class RuleEngine {
         cssValue: '48px',
         priority: 8,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'common_enlarge_click_area',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: 'a, [role="button"]',
@@ -114,7 +114,7 @@ class RuleEngine {
   /// 构建爱奇艺平台适配规则
   List<AdaptationRule> _buildIqiyiRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'iqiyi_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .side-nav',
@@ -123,7 +123,7 @@ class RuleEngine {
         priority: 15,
         applicablePlatformIds: ['iqiyi'],
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'iqiyi_resize_nav',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.nav-wrap, .header-nav',
@@ -138,7 +138,7 @@ class RuleEngine {
   /// 构建腾讯视频平台适配规则
   List<AdaptationRule> _buildTencentRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'tencent_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .side-bar',
@@ -147,7 +147,7 @@ class RuleEngine {
         priority: 15,
         applicablePlatformIds: ['tencent'],
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'tencent_resize_cards',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.list_item, .figure',
@@ -162,7 +162,7 @@ class RuleEngine {
   /// 构建哔哩哔哩平台适配规则
   List<AdaptationRule> _buildBilibiliRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'bilibili_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .bili-sidebar',
@@ -171,7 +171,7 @@ class RuleEngine {
         priority: 15,
         applicablePlatformIds: ['bilibili'],
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'bilibili_resize_video_card',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.feed-card, .video-card',
@@ -186,7 +186,7 @@ class RuleEngine {
   /// 构建优酷平台适配规则
   List<AdaptationRule> _buildYoukuRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'youku_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .yk-sidebar',
@@ -195,7 +195,7 @@ class RuleEngine {
         priority: 15,
         applicablePlatformIds: ['youku'],
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'youku_resize_nav',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.header, .yk-header',
@@ -210,7 +210,7 @@ class RuleEngine {
   /// 构建抖音平台适配规则
   List<AdaptationRule> _buildDouyinRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'douyin_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .side-nav',
@@ -219,7 +219,7 @@ class RuleEngine {
         priority: 15,
         applicablePlatformIds: ['douyin'],
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'douyin_resize_feed',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.feed-card, .video-card',

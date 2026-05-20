@@ -1,6 +1,7 @@
 /// 哔哩哔哩平台适配器
 /// 实现哔哩哔哩网页端的TV大屏适配逻辑
 /// 被适配器注册中心管理
+library;
 
 import '../core/base/base_adapter.dart';
 import '../core/constants/platform_constants.dart';
@@ -24,13 +25,12 @@ class BilibiliAdapter extends BasePlatformAdapter {
   AdaptationConfig get adaptationConfig => AdaptationConfig(
         platformId: kPlatformBilibili,
         rules: _buildRules(),
-        configVersion: 1,
       );
 
   /// 构建哔哩哔哩适配规则列表
   List<AdaptationRule> _buildRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'bilibili_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .bili-sidebar, .left-nav',
@@ -38,7 +38,7 @@ class BilibiliAdapter extends BasePlatformAdapter {
         cssValue: 'none !important',
         priority: 15,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'bilibili_resize_video_card',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.feed-card, .video-card',
@@ -46,7 +46,7 @@ class BilibiliAdapter extends BasePlatformAdapter {
         cssValue: 'scale(1.15)',
         priority: 10,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'bilibili_resize_nav',
         ruleType: AdaptationRuleType.modifyFontSize,
         cssSelector: '.header, .bili-header',
@@ -54,7 +54,7 @@ class BilibiliAdapter extends BasePlatformAdapter {
         cssValue: '22px',
         priority: 12,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'bilibili_hide_banner',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.banner, .header-banner',
@@ -66,7 +66,7 @@ class BilibiliAdapter extends BasePlatformAdapter {
   }
 
   @override
-  String getTvHomePageUrl() => '$kBilibiliBaseUrl';
+  String getTvHomePageUrl() => kBilibiliBaseUrl;
 
   @override
   String? handleNavigationRequest(String requestedUrl) {

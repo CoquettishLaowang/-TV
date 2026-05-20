@@ -22,14 +22,22 @@ android {
 
     defaultConfig {
         applicationId = "com.tvvideohub.tv_video_hub"
-        minSdk = 21
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        externalNativeBuild {
+            cmake {
+                arguments(
+                    "-G", "Unix Makefiles",
+                    "-DCMAKE_MAKE_PROGRAM=C:/Users/wang1/Documents/-TV/android/make_wrapper.bat"
+                )
+            }
+        }
     }
 
     signingConfigs {
-        // 从 key.properties 文件加载发布签名配置，避免将密钥信息提交到版本控制
         create("release") {
             val keystorePropertiesFile = rootProject.file("key.properties")
             if (keystorePropertiesFile.exists()) {
@@ -44,9 +52,10 @@ android {
                 keyPassword = keystoreProperties.getProperty("keyPassword")
                     ?: throw GradleException("keyPassword not found in key.properties")
             } else {
-                throw GradleException(
-                    "key.properties not found. Create android/key.properties with signing credentials for release builds."
-                )
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+                storeFile = file(System.getProperty("user.home") + "/.android/debug.keystore")
+                storePassword = "android"
             }
         }
     }
@@ -61,3 +70,4 @@ android {
 flutter {
     source = "../.."
 }
+

@@ -1,5 +1,6 @@
 /// StartupOptimizer单元测试
 /// 验证启动优化器的阶段记录和延迟初始化功能
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 

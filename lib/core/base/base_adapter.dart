@@ -1,6 +1,7 @@
 /// 适配器基类模块
 /// 定义视频平台适配器的抽象接口，所有平台适配器必须继承此基类
 /// 被各平台适配器继承，被适配器注册中心管理
+library;
 
 import '../../models/adaptation_config.dart';
 import '../../models/platform_info.dart';

@@ -1,6 +1,7 @@
 /// TV卡片组件模块
 /// 提供TV端视频卡片展示组件，支持焦点高亮和缩放效果
 /// 被首页和平台页面用于展示视频内容
+library;
 
 import 'package:flutter/material.dart';
 

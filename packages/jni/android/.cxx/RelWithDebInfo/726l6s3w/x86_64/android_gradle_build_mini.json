@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "C:\\Users\\wang1\\Documents\\-TV\\packages\\jni\\src\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\wang1\\Documents\\-TV\\android\\make_wrapper.bat",
+      "-C",
+      "C:\\Users\\wang1\\Documents\\-TV\\packages\\jni\\android\\.cxx\\RelWithDebInfo\\726l6s3w\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\wang1\\Documents\\-TV\\android\\make_wrapper.bat",
+    "-C",
+    "C:\\Users\\wang1\\Documents\\-TV\\packages\\jni\\android\\.cxx\\RelWithDebInfo\\726l6s3w\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "jni::@6890427a1f51a3e7e1df": {
+      "artifactName": "jni",
+      "abi": "x86_64",
+      "output": "C:\\Users\\wang1\\Documents\\-TV\\build\\jni\\intermediates\\cxx\\RelWithDebInfo\\726l6s3w\\obj\\x86_64\\libdartjni.so",
+      "runtimeFiles": []
+    }
+  }
+}

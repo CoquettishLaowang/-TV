@@ -1,5 +1,6 @@
 /// CssInjector单元测试
 /// 验证CSS注入器的CSS生成和注入功能
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 
@@ -15,7 +16,7 @@ void main() {
     });
 
     test('generateFullCss应包含TV基础CSS', () {
-      final AdaptationConfig config = AdaptationConfig(
+      const AdaptationConfig config = AdaptationConfig(
         platformId: 'test_platform',
         rules: [],
       );
@@ -28,7 +29,7 @@ void main() {
     });
 
     test('generateFullCss应包含平台特定规则', () {
-      final AdaptationConfig config = AdaptationConfig(
+      const AdaptationConfig config = AdaptationConfig(
         platformId: 'iqiyi',
         rules: [
           const AdaptationRule(
@@ -49,7 +50,7 @@ void main() {
     });
 
     test('generateFullCss应包含配置版本注释', () {
-      final AdaptationConfig config = AdaptationConfig(
+      const AdaptationConfig config = AdaptationConfig(
         platformId: 'bilibili',
         rules: [],
         configVersion: 3,
@@ -61,7 +62,7 @@ void main() {
     });
 
     test('generateFullCss空规则列表应仅包含基础CSS', () {
-      final AdaptationConfig config = AdaptationConfig(
+      const AdaptationConfig config = AdaptationConfig(
         platformId: 'empty',
         rules: [],
       );
@@ -73,7 +74,7 @@ void main() {
     });
 
     test('generateFullCss多条规则应全部包含', () {
-      final AdaptationConfig config = AdaptationConfig(
+      const AdaptationConfig config = AdaptationConfig(
         platformId: 'multi',
         rules: [
           const AdaptationRule(

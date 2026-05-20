@@ -3,6 +3,7 @@
 /// TV端：大间距、大字号，适配遥控器导航
 /// 手机端：紧凑布局、标准字号，适配触摸交互
 /// 被所有页面组件使用作为顶层布局容器
+library;
 
 import 'package:flutter/material.dart';
 

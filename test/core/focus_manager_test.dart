@@ -1,5 +1,6 @@
 /// TvFocusManager单元测试
 /// 验证TV焦点管理器的节点注册、焦点移动和焦点查询功能
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 

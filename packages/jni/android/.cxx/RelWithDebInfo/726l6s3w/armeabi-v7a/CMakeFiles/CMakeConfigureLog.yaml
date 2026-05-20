@@ -1,0 +1,215 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      The target system is: Android - 1 - armv7-a
+      The host system is: Windows - 10.0.28000 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe 
+      Build flags: -g;-DANDROID;-fdata-sections;-ffunction-sections;-funwind-tables;-fstack-protector-strong;-no-canonical-prefixes;-D_FORTIFY_SOURCE=2;-march=armv7-a;-mthumb;-Wformat;-Werror=format-security
+      Id flags: -c;--target=armv7-none-linux-androideabi21 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is Clang, found in:
+        C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/3.31.4/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:8 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9"
+      binary: "C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9"
+    cmakeVariables:
+      ANDROID_ABI: "armeabi-v7a"
+      ANDROID_ARM_MODE: "thumb"
+      ANDROID_ARM_NEON: "TRUE"
+      ANDROID_PIE: "TRUE"
+      ANDROID_PLATFORM: "android-21"
+      ANDROID_STL: "c++_static"
+      ANDROID_TOOLCHAIN: "clang"
+      CMAKE_CXX_COMPILER_TARGET: "armv7-none-linux-androideabi21"
+      CMAKE_C_COMPILER_TARGET: "armv7-none-linux-androideabi21"
+      CMAKE_C_FLAGS: "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat "
+      CMAKE_C_FLAGS_DEBUG: "-fno-limit-debug-info "
+      CMAKE_EXE_LINKER_FLAGS: "-static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  "
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+      CMAKE_SYSROOT: "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9'
+        
+        Run Build Command(s): C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/bin/cmake.exe -E env VERBOSE=1 C:/Users/wang1/Documents/-TV/android/make_wrapper.bat -f Makefile cmTC_80515/fast
+        C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/bin/make.exe  -f CMakeFiles/cmTC_80515.dir/build.make CMakeFiles/cmTC_80515.dir/build
+        make[1]: Entering directory 'C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9'
+        Building C object CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o
+        C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe --target=armv7-none-linux-androideabi21 --sysroot=C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat   -fPIE   -v -MD -MT CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o -c C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeCCompilerABI.c
+        Android (13624864, based on r530567e) clang version 19.0.1 (https://android.googlesource.com/toolchain/llvm-project 97a699bf4812a18fb657c2779f5296a4ab2694d2)
+        Target: armv7-none-linux-android21
+        Thread model: posix
+        InstalledDir: C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin
+         (in-process)
+         "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe" -cc1 -triple thumbv7-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=1 -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -sha2 -target-feature -aes -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9 -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9 -resource-dir C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19 -dependency-file CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/include -internal-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o -x c C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeCCompilerABI.c
+        clang -cc1 version 19.0.1 based upon LLVM 19.0.1 default target x86_64-w64-windows-gnu
+        ignoring nonexistent directory "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"
+        ignoring nonexistent directory "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/include
+         C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/arm-linux-androideabi
+         C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include
+        End of search list.
+        Linking C executable cmTC_80515
+        C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe --target=armv7-none-linux-androideabi21 --sysroot=C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat   -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments   -v "CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o"  -o cmTC_80515
+        Android (13624864, based on r530567e) clang version 19.0.1 (https://android.googlesource.com/toolchain/llvm-project 97a699bf4812a18fb657c2779f5296a4ab2694d2)
+        Target: armv7-none-linux-android21
+        Thread model: posix
+        InstalledDir: C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin
+         "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot -EL -z now -z relro -z max-page-size=4096 -X --hash-style=both --eh-frame-hdr -m armelf_linux_eabi -pie -dynamic-linker /system/bin/linker -o cmTC_80515 C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtbegin_dynamic.o -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/arm -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21 -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/../lib -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtend_android.o
+        make[1]: Leaving directory 'C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/include]
+          add: [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/arm-linux-androideabi]
+          add: [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+        end of search list found
+        collapse include dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/include] ==> [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/include]
+        collapse include dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/arm-linux-androideabi] ==> [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/arm-linux-androideabi]
+        collapse include dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include] ==> [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+        implicit include dirs: [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/include;C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/arm-linux-androideabi;C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: 'C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9']
+        ignore line: []
+        ignore line: [Run Build Command(s): C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/bin/cmake.exe -E env VERBOSE=1 C:/Users/wang1/Documents/-TV/android/make_wrapper.bat -f Makefile cmTC_80515/fast]
+        ignore line: [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/bin/make.exe  -f CMakeFiles/cmTC_80515.dir/build.make CMakeFiles/cmTC_80515.dir/build]
+        ignore line: [make[1]: Entering directory 'C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9']
+        ignore line: [Building C object CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o]
+        ignore line: [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe --target=armv7-none-linux-androideabi21 --sysroot=C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat   -fPIE   -v -MD -MT CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o -c C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeCCompilerABI.c]
+        ignore line: [Android (13624864  based on r530567e) clang version 19.0.1 (https://android.googlesource.com/toolchain/llvm-project 97a699bf4812a18fb657c2779f5296a4ab2694d2)]
+        ignore line: [Target: armv7-none-linux-android21]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin]
+        ignore line: [ (in-process)]
+        ignore line: [ "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe" -cc1 -triple thumbv7-none-linux-android21 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=1 -target-cpu generic -target-feature +soft-float-abi -target-feature +vfp2 -target-feature +vfp2sp -target-feature +vfp3 -target-feature +vfp3d16 -target-feature +vfp3d16sp -target-feature +vfp3sp -target-feature -fp16 -target-feature -vfp4 -target-feature -vfp4d16 -target-feature -vfp4d16sp -target-feature -vfp4sp -target-feature -fp-armv8 -target-feature -fp-armv8d16 -target-feature -fp-armv8d16sp -target-feature -fp-armv8sp -target-feature -fullfp16 -target-feature +fp64 -target-feature +d32 -target-feature +neon -target-feature -sha2 -target-feature -aes -target-feature -fp16fml -target-abi aapcs-linux -mfloat-abi soft -debug-info-kind=constructor -dwarf-version=4 -debugger-tuning=gdb -fdebug-compilation-dir=C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9 -v -ffunction-sections -fdata-sections -fcoverage-compilation-dir=C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/CMakeScratch/TryCompile-98kou9 -resource-dir C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19 -dependency-file CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o -sys-header-deps -D ANDROID -D _FORTIFY_SOURCE=2 -isysroot C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot -internal-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/include -internal-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include -internal-externc-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/arm-linux-androideabi -internal-externc-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include -internal-externc-isystem C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include -Wformat -ferror-limit 19 -femulated-tls -stack-protector 2 -fno-signed-char -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o -x c C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang -cc1 version 19.0.1 based upon LLVM 19.0.1 default target x86_64-w64-windows-gnu]
+        ignore line: [ignoring nonexistent directory "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include"]
+        ignore line: [ignoring nonexistent directory "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/include]
+        ignore line: [ C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/arm-linux-androideabi]
+        ignore line: [ C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking C executable cmTC_80515]
+        ignore line: [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe --target=armv7-none-linux-androideabi21 --sysroot=C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat   -static-libstdc++ -Wl --build-id=sha1 -Wl --no-rosegment -Wl --no-undefined-version -Wl --fatal-warnings -Wl --no-undefined -Qunused-arguments   -v "CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o"  -o cmTC_80515]
+        ignore line: [Android (13624864  based on r530567e) clang version 19.0.1 (https://android.googlesource.com/toolchain/llvm-project 97a699bf4812a18fb657c2779f5296a4ab2694d2)]
+        ignore line: [Target: armv7-none-linux-android21]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin]
+        link line: [ "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" --sysroot=C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot -EL -z now -z relro -z max-page-size=4096 -X --hash-style=both --eh-frame-hdr -m armelf_linux_eabi -pie -dynamic-linker /system/bin/linker -o cmTC_80515 C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtbegin_dynamic.o -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/arm -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21 -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/../lib -LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib --build-id=sha1 --no-rosegment --no-undefined-version --fatal-warnings --no-undefined CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl -lc C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a -l:libunwind.a -ldl C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtend_android.o]
+          arg [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld] ==> ignore
+          arg [--sysroot=C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot] ==> ignore
+          arg [-EL] ==> ignore
+          arg [-znow] ==> ignore
+          arg [-zrelro] ==> ignore
+          arg [-zmax-page-size=4096] ==> ignore
+          arg [-X] ==> ignore
+          arg [--hash-style=both] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [armelf_linux_eabi] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/system/bin/linker] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_80515] ==> ignore
+          arg [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtbegin_dynamic.o] ==> obj [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtbegin_dynamic.o]
+          arg [-LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/arm] ==> dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/arm]
+          arg [-LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21] ==> dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21]
+          arg [-LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi] ==> dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi]
+          arg [-LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/../lib] ==> dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/../lib]
+          arg [-LC:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+          arg [--build-id=sha1] ==> ignore
+          arg [--no-rosegment] ==> ignore
+          arg [--no-undefined-version] ==> ignore
+          arg [--fatal-warnings] ==> ignore
+          arg [--no-undefined] ==> ignore
+          arg [CMakeFiles/cmTC_80515.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a] ==> lib [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [-lc] ==> lib [c]
+          arg [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a] ==> lib [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a]
+          arg [-l:libunwind.a] ==> lib [-l:libunwind.a]
+          arg [-ldl] ==> lib [dl]
+          arg [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtend_android.o] ==> obj [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtend_android.o]
+        linker tool for 'C': C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld
+        remove lib [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a]
+        remove lib [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/libclang_rt.builtins-arm-android.a]
+        collapse library dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/arm] ==> [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/arm]
+        collapse library dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21] ==> [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21]
+        collapse library dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi] ==> [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi]
+        collapse library dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/../lib] ==> [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+        collapse library dir [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib] ==> [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+        implicit libs: [-l:libunwind.a;dl;c;-l:libunwind.a;dl]
+        implicit objs: [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtbegin_dynamic.o;C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21/crtend_android.o]
+        implicit dirs: [C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/lib/clang/19/lib/linux/arm;C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/21;C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi;C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/cmake/3.31.4/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:8 (project)"
+    message: |
+      Running the C compiler's linker: "C:/Users/wang1/Documents/trae_projects/cc/android_sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld" "-v"
+      LLD 19.0.1 (compatible with GNU linkers)
+...

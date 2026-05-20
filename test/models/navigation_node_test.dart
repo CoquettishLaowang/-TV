@@ -1,5 +1,6 @@
 /// NavigationNode模型单元测试
 /// 验证导航节点的邻居关系和方向操作
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 

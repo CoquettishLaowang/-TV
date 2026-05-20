@@ -3,6 +3,7 @@
 /// TV端：响应遥控器方向键导航、焦点高亮和缩放动画
 /// 手机端：响应触摸点击、跳过焦点动画以提升性能
 /// 被所有需要交互的UI组件使用
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

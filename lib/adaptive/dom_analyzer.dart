@@ -1,6 +1,7 @@
 /// DOM分析器模块
 /// 分析WebView中的DOM结构，检测网页格式变化
 /// 被自适应规则引擎使用，实现网页格式变化时的自动适配
+library;
 
 import '../web/webview_controller.dart';
 
@@ -119,7 +120,7 @@ class DomAnalyzer {
   /// 返回：String - 特征哈希字符串
   /// 副作用：无
   String _computeHash(int navCount, int cardCount, int linkCount, int imageCount) {
-    return '${navCount}_${cardCount}_${linkCount}_${imageCount}';
+    return '${navCount}_${cardCount}_${linkCount}_$imageCount';
   }
 
   /// 检测DOM是否发生显著变化

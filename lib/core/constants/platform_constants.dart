@@ -1,6 +1,7 @@
 /// 视频平台常量定义模块
 /// 定义各视频平台的标识、URL、CSS选择器等常量
 /// 被适配器模块和注册中心引用
+library;
 
 /// 爱奇艺平台标识
 const String kPlatformIqiyi = 'iqiyi';

@@ -1,6 +1,7 @@
 /// 帧率监控模块
 /// 监控应用帧率性能，检测卡顿并记录性能数据
 /// 被性能监控模块和调试工具使用
+library;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';

@@ -1,6 +1,7 @@
 /// 适配配置模型
 /// 定义CSS适配规则的配置结构，用于WebView页面注入CSS以适配TV大屏
 /// 被自适应规则引擎和CSS注入器使用
+library;
 
 /// 适配规则类型枚举
 enum AdaptationRuleType {

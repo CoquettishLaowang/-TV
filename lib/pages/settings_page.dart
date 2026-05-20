@@ -3,6 +3,7 @@
 /// 被导航栏的设置入口调用
 /// TV端：大间距、大字号适配遥控器导航
 /// 手机端：紧凑布局、标准字号适配触摸交互
+library;
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -123,7 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
         icon: Icons.restore,
         onTap: _handleResetSettings,
       ),
-      SettingItem(
+      const SettingItem(
         title: '关于',
         subtitle: '$kAppName v$kAppVersion',
         icon: Icons.info_outline,

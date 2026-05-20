@@ -1,0 +1,3 @@
+C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/jni.dir
+C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/wang1/Documents/-TV/packages/jni/android/.cxx/RelWithDebInfo/726l6s3w/armeabi-v7a/CMakeFiles/rebuild_cache.dir

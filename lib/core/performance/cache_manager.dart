@@ -2,6 +2,7 @@
 /// 统一管理图片缓存和WebView缓存的初始化、容量控制和清理策略
 /// 针对低性能TV设备优化缓存行为，控制内存占用
 /// 被应用入口main()调用以初始化缓存策略
+library;
 
 import 'package:flutter/painting.dart';
 

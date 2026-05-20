@@ -2,6 +2,7 @@
 /// 定义TV大屏UI的尺寸标准，包括间距、字体、图标、卡片等
 /// 被所有UI组件引用，确保TV端视觉一致性
 /// 所有尺寸基于1920x1080标准TV分辨率设计
+library;
 
 import 'package:flutter/material.dart';
 

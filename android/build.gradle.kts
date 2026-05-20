@@ -19,6 +19,37 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
+subprojects {
+    plugins.withId("com.android.library") {
+        extensions.configure<com.android.build.api.dsl.LibraryExtension> {
+            defaultConfig {
+                externalNativeBuild {
+                    cmake {
+                        arguments(
+                            "-G", "Unix Makefiles",
+                            "-DCMAKE_MAKE_PROGRAM=C:/Users/wang1/Documents/-TV/android/make_wrapper.bat"
+                        )
+                    }
+                }
+            }
+        }
+    }
+    plugins.withId("com.android.application") {
+        extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
+            defaultConfig {
+                externalNativeBuild {
+                    cmake {
+                        arguments(
+                            "-G", "Unix Makefiles",
+                            "-DCMAKE_MAKE_PROGRAM=C:/Users/wang1/Documents/-TV/android/make_wrapper.bat"
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }

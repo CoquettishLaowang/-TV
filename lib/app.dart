@@ -1,6 +1,7 @@
 /// 应用根组件模块
 /// 定义应用的根Widget，管理路由、主题和全局状态
 /// 被main.dart调用
+library;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

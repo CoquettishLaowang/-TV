@@ -2,6 +2,7 @@
 /// 应用主页面，展示所有支持的视频平台入口
 /// TV端：用户通过遥控器选择平台进入，大网格布局
 /// 手机端：用户通过触摸点击选择平台，双列网格布局
+library;
 
 import 'package:flutter/material.dart';
 

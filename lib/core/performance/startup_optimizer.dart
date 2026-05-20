@@ -1,6 +1,7 @@
 /// 启动优化模块
 /// 优化应用冷启动性能，确保冷启动时间<3秒
 /// 被应用入口main()函数使用
+library;
 
 import 'package:flutter/foundation.dart';
 

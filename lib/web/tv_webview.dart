@@ -1,6 +1,7 @@
 /// TV WebView组件模块
 /// 提供TV端WebView展示组件，集成WebView控制器和加载状态管理
 /// 被平台页面使用以展示适配后的视频平台网页
+library;
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';

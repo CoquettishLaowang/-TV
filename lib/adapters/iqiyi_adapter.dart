@@ -1,6 +1,7 @@
 /// 爱奇艺平台适配器
 /// 实现爱奇艺网页端的TV大屏适配逻辑
 /// 被适配器注册中心管理
+library;
 
 import '../core/base/base_adapter.dart';
 import '../core/constants/platform_constants.dart';
@@ -24,7 +25,6 @@ class IqiyiAdapter extends BasePlatformAdapter {
   AdaptationConfig get adaptationConfig => AdaptationConfig(
         platformId: kPlatformIqiyi,
         rules: _buildRules(),
-        configVersion: 1,
       );
 
   /// 构建爱奇艺适配规则列表
@@ -32,7 +32,7 @@ class IqiyiAdapter extends BasePlatformAdapter {
   /// 副作用：无
   List<AdaptationRule> _buildRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'iqiyi_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .side-nav, .mod-side',
@@ -40,7 +40,7 @@ class IqiyiAdapter extends BasePlatformAdapter {
         cssValue: 'none !important',
         priority: 15,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'iqiyi_resize_nav',
         ruleType: AdaptationRuleType.modifyFontSize,
         cssSelector: '.nav-wrap, .header-nav',
@@ -48,7 +48,7 @@ class IqiyiAdapter extends BasePlatformAdapter {
         cssValue: '24px',
         priority: 12,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'iqiyi_resize_cards',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.site-pic, .qy-mod-link',
@@ -56,7 +56,7 @@ class IqiyiAdapter extends BasePlatformAdapter {
         cssValue: 'scale(1.15)',
         priority: 10,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'iqiyi_hide_ad',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.qy-player-side-ad, .mod-ad',
@@ -68,7 +68,7 @@ class IqiyiAdapter extends BasePlatformAdapter {
   }
 
   @override
-  String getTvHomePageUrl() => '$kIqiyiBaseUrl';
+  String getTvHomePageUrl() => kIqiyiBaseUrl;
 
   @override
   String? handleNavigationRequest(String requestedUrl) {

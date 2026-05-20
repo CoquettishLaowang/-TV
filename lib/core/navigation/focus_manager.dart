@@ -1,6 +1,7 @@
 /// 焦点管理器模块
 /// 管理TV遥控器导航的焦点节点，维护焦点图和焦点切换逻辑
 /// 被TV导航控制器和TVFocusable组件使用
+library;
 
 import 'package:flutter/widgets.dart';
 

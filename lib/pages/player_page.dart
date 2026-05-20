@@ -3,6 +3,7 @@
 /// TV端：大图标控制栏适配遥控器操作
 /// 手机端：标准图标控制栏适配触摸操作
 /// 被平台页面调用
+library;
 
 import 'package:flutter/material.dart';
 
@@ -92,7 +93,7 @@ class _PlayerPageState extends State<PlayerPage> {
   /// 副作用：无
   Widget _buildControlOverlay(BuildContext context) {
     final ResponsiveConfig responsiveConfig = ResponsiveAdapter.of(context);
-    final double barHeight = kBottomBarHeight + _controlBarExtraHeight;
+    const double barHeight = kBottomBarHeight + _controlBarExtraHeight;
     final double iconSize = responsiveConfig.iconSizeLarge;
 
     return Positioned(

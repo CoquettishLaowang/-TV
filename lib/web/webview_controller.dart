@@ -1,6 +1,7 @@
 /// WebView控制器模块
 /// 封装WebView的核心控制逻辑，包括页面加载、CSS注入、JS桥接通信
 /// 被TV WebView组件和平台适配器使用
+library;
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';

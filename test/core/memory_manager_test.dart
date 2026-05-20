@@ -1,5 +1,6 @@
 /// MemoryManager单元测试
 /// 验证内存管理器的快照采集、趋势分析和阈值检测功能
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 

@@ -1,6 +1,7 @@
 /// JS桥接模块
 /// 定义Flutter与WebView之间的JavaScript通信接口
 /// 被WebView控制器使用，实现双向通信
+library;
 
 import 'dart:convert';
 

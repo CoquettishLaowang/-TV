@@ -1,5 +1,6 @@
 /// PlatformInfo模型单元测试
 /// 验证平台信息数据类的创建、序列化和相等性比较
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 
@@ -14,7 +15,6 @@ void main() {
         baseUrl: 'https://www.bilibili.com',
         iconPath: 'assets/icons/bilibili.png',
         brandColor: 0xFF00A1D6,
-        isAvailable: true,
       );
 
       expect(info.id, 'bilibili');

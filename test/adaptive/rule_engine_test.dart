@@ -1,5 +1,6 @@
 /// RuleEngine单元测试
 /// 验证自适应规则引擎的初始化、规则管理和CSS生成功能
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 
@@ -120,7 +121,7 @@ void main() {
     test('updateConfig应替换整个平台配置', () async {
       await ruleEngine.initialize();
 
-      final AdaptationConfig newConfig = AdaptationConfig(
+      const AdaptationConfig newConfig = AdaptationConfig(
         platformId: 'iqiyi',
         rules: [
           const AdaptationRule(

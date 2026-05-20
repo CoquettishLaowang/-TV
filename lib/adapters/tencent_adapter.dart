@@ -1,6 +1,7 @@
 /// 腾讯视频平台适配器
 /// 实现腾讯视频网页端的TV大屏适配逻辑
 /// 被适配器注册中心管理
+library;
 
 import '../core/base/base_adapter.dart';
 import '../core/constants/platform_constants.dart';
@@ -24,13 +25,12 @@ class TencentAdapter extends BasePlatformAdapter {
   AdaptationConfig get adaptationConfig => AdaptationConfig(
         platformId: kPlatformTencent,
         rules: _buildRules(),
-        configVersion: 1,
       );
 
   /// 构建腾讯视频适配规则列表
   List<AdaptationRule> _buildRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'tencent_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .side-bar, .mod-side',
@@ -38,7 +38,7 @@ class TencentAdapter extends BasePlatformAdapter {
         cssValue: 'none !important',
         priority: 15,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'tencent_resize_cards',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.list_item, .figure',
@@ -46,7 +46,7 @@ class TencentAdapter extends BasePlatformAdapter {
         cssValue: 'scale(1.2)',
         priority: 10,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'tencent_hide_ad',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.ad-banner, .mod-ad',
@@ -54,7 +54,7 @@ class TencentAdapter extends BasePlatformAdapter {
         cssValue: 'none !important',
         priority: 20,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'tencent_resize_nav',
         ruleType: AdaptationRuleType.modifyFontSize,
         cssSelector: '.site-header, .nav_inner',
@@ -66,7 +66,7 @@ class TencentAdapter extends BasePlatformAdapter {
   }
 
   @override
-  String getTvHomePageUrl() => '$kTencentBaseUrl';
+  String getTvHomePageUrl() => kTencentBaseUrl;
 
   @override
   String? handleNavigationRequest(String requestedUrl) {

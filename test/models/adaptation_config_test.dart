@@ -1,5 +1,6 @@
 /// AdaptationConfig模型单元测试
 /// 验证适配配置和适配规则的数据操作
+library;
 
 import 'package:flutter_test/flutter_test.dart';
 
@@ -45,7 +46,6 @@ void main() {
         cssSelector: '*',
         cssProperty: 'color',
         cssValue: 'white',
-        applicablePlatformIds: [],
       );
 
       expect(rule.isApplicableForPlatform('iqiyi'), true);
@@ -92,7 +92,7 @@ void main() {
 
   group('AdaptationConfig', () {
     test('getSortedRules应按优先级从高到低排序', () {
-      final AdaptationConfig config = AdaptationConfig(
+      const AdaptationConfig config = AdaptationConfig(
         platformId: 'test',
         rules: [
           const AdaptationRule(
@@ -130,7 +130,7 @@ void main() {
     });
 
     test('generateCss应生成包含所有规则的CSS代码', () {
-      final AdaptationConfig config = AdaptationConfig(
+      const AdaptationConfig config = AdaptationConfig(
         platformId: 'test',
         rules: [
           const AdaptationRule(
@@ -157,7 +157,7 @@ void main() {
     });
 
     test('copyWith应正确创建副本', () {
-      final AdaptationConfig original = AdaptationConfig(
+      const AdaptationConfig original = AdaptationConfig(
         platformId: 'iqiyi',
         rules: [
           const AdaptationRule(
@@ -168,7 +168,6 @@ void main() {
             cssValue: 'none',
           ),
         ],
-        configVersion: 1,
       );
 
       final AdaptationConfig copied = original.copyWith(configVersion: 2);

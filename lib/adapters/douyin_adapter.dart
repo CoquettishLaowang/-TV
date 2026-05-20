@@ -1,6 +1,7 @@
 /// 抖音平台适配器
 /// 实现抖音网页端的TV大屏适配逻辑
 /// 被适配器注册中心管理
+library;
 
 import '../core/base/base_adapter.dart';
 import '../core/constants/platform_constants.dart';
@@ -24,13 +25,12 @@ class DouyinAdapter extends BasePlatformAdapter {
   AdaptationConfig get adaptationConfig => AdaptationConfig(
         platformId: kPlatformDouyin,
         rules: _buildRules(),
-        configVersion: 1,
       );
 
   /// 构建抖音适配规则列表
   List<AdaptationRule> _buildRules() {
     return [
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'douyin_hide_sidebar',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.sidebar, .side-nav, .left-nav',
@@ -38,7 +38,7 @@ class DouyinAdapter extends BasePlatformAdapter {
         cssValue: 'none !important',
         priority: 15,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'douyin_resize_feed',
         ruleType: AdaptationRuleType.resizeElement,
         cssSelector: '.feed-card, .video-card',
@@ -46,7 +46,7 @@ class DouyinAdapter extends BasePlatformAdapter {
         cssValue: 'scale(1.2)',
         priority: 10,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'douyin_resize_nav',
         ruleType: AdaptationRuleType.modifyFontSize,
         cssSelector: '.header, .nav-container',
@@ -54,7 +54,7 @@ class DouyinAdapter extends BasePlatformAdapter {
         cssValue: '24px',
         priority: 12,
       ),
-      AdaptationRule(
+      const AdaptationRule(
         ruleId: 'douyin_hide_recommend',
         ruleType: AdaptationRuleType.hideElement,
         cssSelector: '.recommend-sidebar, .related-panel',
@@ -66,7 +66,7 @@ class DouyinAdapter extends BasePlatformAdapter {
   }
 
   @override
-  String getTvHomePageUrl() => '$kDouyinBaseUrl';
+  String getTvHomePageUrl() => kDouyinBaseUrl;
 
   @override
   String? handleNavigationRequest(String requestedUrl) {
