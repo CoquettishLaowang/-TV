@@ -95,7 +95,7 @@ void main() {
       const AdaptationConfig config = AdaptationConfig(
         platformId: 'test',
         rules: [
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'low_priority',
             ruleType: AdaptationRuleType.modifyFontSize,
             cssSelector: 'body',
@@ -103,7 +103,7 @@ void main() {
             cssValue: '20px',
             priority: 5,
           ),
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'high_priority',
             ruleType: AdaptationRuleType.hideElement,
             cssSelector: '.ad',
@@ -111,7 +111,7 @@ void main() {
             cssValue: 'none',
             priority: 20,
           ),
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'mid_priority',
             ruleType: AdaptationRuleType.resizeElement,
             cssSelector: '.card',
@@ -133,14 +133,14 @@ void main() {
       const AdaptationConfig config = AdaptationConfig(
         platformId: 'test',
         rules: [
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'rule_a',
             ruleType: AdaptationRuleType.hideElement,
             cssSelector: '.sidebar',
             cssProperty: 'display',
             cssValue: 'none',
           ),
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'rule_b',
             ruleType: AdaptationRuleType.modifyFontSize,
             cssSelector: 'body',
@@ -160,7 +160,7 @@ void main() {
       const AdaptationConfig original = AdaptationConfig(
         platformId: 'iqiyi',
         rules: [
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'rule_1',
             ruleType: AdaptationRuleType.hideElement,
             cssSelector: '.ad',

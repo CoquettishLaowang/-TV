@@ -124,7 +124,7 @@ void main() {
       const AdaptationConfig newConfig = AdaptationConfig(
         platformId: 'iqiyi',
         rules: [
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'replaced_rule',
             ruleType: AdaptationRuleType.customCss,
             cssSelector: '*',

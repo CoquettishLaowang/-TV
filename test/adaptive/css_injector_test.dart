@@ -32,7 +32,7 @@ void main() {
       const AdaptationConfig config = AdaptationConfig(
         platformId: 'iqiyi',
         rules: [
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'test_hide',
             ruleType: AdaptationRuleType.hideElement,
             cssSelector: '.sidebar',
@@ -77,21 +77,21 @@ void main() {
       const AdaptationConfig config = AdaptationConfig(
         platformId: 'multi',
         rules: [
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'rule_a',
             ruleType: AdaptationRuleType.hideElement,
             cssSelector: '.ad',
             cssProperty: 'display',
             cssValue: 'none',
           ),
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'rule_b',
             ruleType: AdaptationRuleType.modifyFontSize,
             cssSelector: 'body',
             cssProperty: 'font-size',
             cssValue: '24px',
           ),
-          const AdaptationRule(
+          AdaptationRule(
             ruleId: 'rule_c',
             ruleType: AdaptationRuleType.resizeElement,
             cssSelector: '.card',
