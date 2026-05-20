@@ -1,5 +1,6 @@
 /// 抖音平台适配器
 /// 实现抖音网页端的TV大屏适配逻辑
+/// 适配规则由RuleEngine统一管理，避免重复定义
 /// 被适配器注册中心管理
 library;
 
@@ -7,6 +8,7 @@ import '../core/base/base_adapter.dart';
 import '../core/constants/platform_constants.dart';
 import '../models/adaptation_config.dart';
 import '../models/platform_info.dart';
+import '../adaptive/rule_engine.dart';
 import '../web/webview_controller.dart';
 
 /// 抖音适配器
@@ -22,48 +24,9 @@ class DouyinAdapter extends BasePlatformAdapter {
       );
 
   @override
-  AdaptationConfig get adaptationConfig => AdaptationConfig(
-        platformId: kPlatformDouyin,
-        rules: _buildRules(),
-      );
-
-  /// 构建抖音适配规则列表
-  List<AdaptationRule> _buildRules() {
-    return [
-      const AdaptationRule(
-        ruleId: 'douyin_hide_sidebar',
-        ruleType: AdaptationRuleType.hideElement,
-        cssSelector: '.sidebar, .side-nav, .left-nav',
-        cssProperty: 'display',
-        cssValue: 'none !important',
-        priority: 15,
-      ),
-      const AdaptationRule(
-        ruleId: 'douyin_resize_feed',
-        ruleType: AdaptationRuleType.resizeElement,
-        cssSelector: '.feed-card, .video-card',
-        cssProperty: 'transform',
-        cssValue: 'scale(1.2)',
-        priority: 10,
-      ),
-      const AdaptationRule(
-        ruleId: 'douyin_resize_nav',
-        ruleType: AdaptationRuleType.modifyFontSize,
-        cssSelector: '.header, .nav-container',
-        cssProperty: 'font-size',
-        cssValue: '24px',
-        priority: 12,
-      ),
-      const AdaptationRule(
-        ruleId: 'douyin_hide_recommend',
-        ruleType: AdaptationRuleType.hideElement,
-        cssSelector: '.recommend-sidebar, .related-panel',
-        cssProperty: 'display',
-        cssValue: 'none !important',
-        priority: 15,
-      ),
-    ];
-  }
+  AdaptationConfig get adaptationConfig =>
+      RuleEngine.instance.getConfig(kPlatformDouyin) ??
+      const AdaptationConfig(platformId: kPlatformDouyin, rules: []);
 
   @override
   String getTvHomePageUrl() => kDouyinBaseUrl;

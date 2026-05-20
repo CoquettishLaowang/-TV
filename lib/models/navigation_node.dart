@@ -18,14 +18,23 @@ enum NavigationDirection {
   right,
 }
 
+/// 焦点确认回调类型
+/// 当用户按遥控器确认键时调用，返回true表示事件已处理
+typedef NavigationConfirmCallback = bool Function();
+
 /// 导航节点，表示TV界面中一个可聚焦的元素
 /// 每个节点存储其在导航图中的邻居关系
+/// 当用户按确认键时，触发onConfirm回调执行业务操作
 class NavigationNode {
   /// 节点唯一标识，通常对应FocusNode的标识
   final String nodeId;
 
   /// 节点所属的分组标识，用于限制导航范围
   final String groupId;
+
+  /// 确认键回调，当用户在此节点上按确认键时调用
+  /// 返回true表示确认事件已处理
+  final NavigationConfirmCallback? onConfirm;
 
   /// 上方邻居节点ID，遥控器按上键时跳转目标
   String? upNeighborId;
@@ -46,11 +55,12 @@ class NavigationNode {
   int? columnIndex;
 
   /// 构造函数
-  /// 参数：nodeId - 节点标识 / groupId - 分组标识
+  /// 参数：nodeId - 节点标识 / groupId - 分组标识 / onConfirm - 确认回调
   /// 副作用：无
   NavigationNode({
     required this.nodeId,
     required this.groupId,
+    this.onConfirm,
     this.upNeighborId,
     this.downNeighborId,
     this.leftNeighborId,

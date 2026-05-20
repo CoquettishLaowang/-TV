@@ -6,6 +6,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../core/constants/platform_constants.dart';
 import 'js_bridge.dart';
 
 /// WebView状态枚举
@@ -69,6 +70,7 @@ class TvWebViewController extends ChangeNotifier {
     }
     _webViewController!.setJavaScriptMode(JavaScriptMode.unrestricted);
     _webViewController!.setBackgroundColor(Colors.black);
+    _webViewController!.setUserAgent(kDesktopUserAgent);
     _webViewController!.setNavigationDelegate(
       NavigationDelegate(
         onPageStarted: _handlePageStarted,
@@ -152,6 +154,9 @@ class TvWebViewController extends ChangeNotifier {
     if (_webViewController == null) {
       return;
     }
+    _webViewController!.runJavaScript(
+      JsBridgeScriptGenerator.generateUserAgentOverrideScript(kDesktopUserAgent),
+    );
     _webViewController!.runJavaScript(
       JsBridgeScriptGenerator.generateDomObserverScript(),
     );

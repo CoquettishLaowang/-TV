@@ -4,6 +4,7 @@
 /// 被应用初始化代码和性能监控模块使用
 library;
 
+import 'dart:async';
 import 'dart:io' show ProcessInfo;
 
 import 'package:flutter/foundation.dart';
@@ -51,6 +52,9 @@ enum MemoryTrend {
 class MemoryManager extends ChangeNotifier {
   /// 内存快照历史记录
   final List<MemorySnapshot> _snapshots = [];
+
+  /// 定期内存采集定时器
+  Timer? _monitoringTimer;
 
   /// 获取当前内存使用量（MB）
   /// 返回：double - 当前进程RSS内存
@@ -203,14 +207,30 @@ class MemoryManager extends ChangeNotifier {
   }
 
   /// 开始定期内存监控
-  /// 副作用：采集初始快照
+  /// 启动周期性定时器，每隔kMemorySnapshotIntervalSeconds秒采集一次内存快照
+  /// 副作用：采集初始快照，启动定期采集定时器
   void startMonitoring() {
     captureSnapshot();
+    _monitoringTimer?.cancel();
+    _monitoringTimer = Timer.periodic(
+      const Duration(seconds: kMemorySnapshotIntervalSeconds),
+      (_) => captureSnapshot(),
+    );
   }
 
-  /// 停止内存监控
-  /// 副作用：无
-  void stopMonitoring() {}
+  /// 停止定期内存监控
+  /// 副作用：取消定期采集定时器
+  void stopMonitoring() {
+    _monitoringTimer?.cancel();
+    _monitoringTimer = null;
+  }
+
+  @override
+  void dispose() {
+    stopMonitoring();
+    _snapshots.clear();
+    super.dispose();
+  }
 
   /// 清除所有快照历史
   /// 副作用：清空快照列表

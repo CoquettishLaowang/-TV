@@ -89,3 +89,8 @@ const String kDouyinVideoCardSelector = '.video-card, .feed-card';
 
 /// WebView User-Agent后缀，标识TV端请求
 const String kTvUserAgentSuffix = 'TVVideoHub/1.0 (TV; LargeScreen)';
+
+/// 桌面端 Chrome User-Agent，确保视频网站返回PC网页版
+const String kDesktopUserAgent =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+    '(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 TVVideoHub/1.0';

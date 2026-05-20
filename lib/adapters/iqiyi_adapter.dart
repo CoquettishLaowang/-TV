@@ -1,5 +1,6 @@
 /// 爱奇艺平台适配器
 /// 实现爱奇艺网页端的TV大屏适配逻辑
+/// 适配规则由RuleEngine统一管理，避免重复定义
 /// 被适配器注册中心管理
 library;
 
@@ -7,6 +8,7 @@ import '../core/base/base_adapter.dart';
 import '../core/constants/platform_constants.dart';
 import '../models/adaptation_config.dart';
 import '../models/platform_info.dart';
+import '../adaptive/rule_engine.dart';
 import '../web/webview_controller.dart';
 
 /// 爱奇艺适配器
@@ -22,50 +24,9 @@ class IqiyiAdapter extends BasePlatformAdapter {
       );
 
   @override
-  AdaptationConfig get adaptationConfig => AdaptationConfig(
-        platformId: kPlatformIqiyi,
-        rules: _buildRules(),
-      );
-
-  /// 构建爱奇艺适配规则列表
-  /// 返回：List<AdaptationRule> - 适配规则
-  /// 副作用：无
-  List<AdaptationRule> _buildRules() {
-    return [
-      const AdaptationRule(
-        ruleId: 'iqiyi_hide_sidebar',
-        ruleType: AdaptationRuleType.hideElement,
-        cssSelector: '.sidebar, .side-nav, .mod-side',
-        cssProperty: 'display',
-        cssValue: 'none !important',
-        priority: 15,
-      ),
-      const AdaptationRule(
-        ruleId: 'iqiyi_resize_nav',
-        ruleType: AdaptationRuleType.modifyFontSize,
-        cssSelector: '.nav-wrap, .header-nav',
-        cssProperty: 'font-size',
-        cssValue: '24px',
-        priority: 12,
-      ),
-      const AdaptationRule(
-        ruleId: 'iqiyi_resize_cards',
-        ruleType: AdaptationRuleType.resizeElement,
-        cssSelector: '.site-pic, .qy-mod-link',
-        cssProperty: 'transform',
-        cssValue: 'scale(1.15)',
-        priority: 10,
-      ),
-      const AdaptationRule(
-        ruleId: 'iqiyi_hide_ad',
-        ruleType: AdaptationRuleType.hideElement,
-        cssSelector: '.qy-player-side-ad, .mod-ad',
-        cssProperty: 'display',
-        cssValue: 'none !important',
-        priority: 20,
-      ),
-    ];
-  }
+  AdaptationConfig get adaptationConfig =>
+      RuleEngine.instance.getConfig(kPlatformIqiyi) ??
+      const AdaptationConfig(platformId: kPlatformIqiyi, rules: []);
 
   @override
   String getTvHomePageUrl() => kIqiyiBaseUrl;

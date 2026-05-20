@@ -5,6 +5,7 @@ library;
 
 import '../../models/adaptation_config.dart';
 import '../../models/platform_info.dart';
+import '../../adaptive/css_injector.dart';
 import '../../web/webview_controller.dart';
 
 /// 视频平台适配器基类
@@ -32,7 +33,8 @@ abstract class BasePlatformAdapter {
   /// 参数：controller - WebView控制器
   /// 副作用：向WebView注入CSS代码
   void applyAdaptation(TvWebViewController controller) {
-    final String css = adaptationConfig.generateCss();
+    final CssInjector injector = CssInjector();
+    final String css = injector.generateFullCss(adaptationConfig);
     controller.injectCss(css);
   }
 

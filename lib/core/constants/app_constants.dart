@@ -22,7 +22,9 @@ const int kMemoryWarningThresholdMb = 200;
 const int kTargetFrameRate = 60;
 
 /// 帧率低于此值视为卡顿，需要性能优化介入
-const int kFrameDropThreshold = 45;
+/// 目标帧率60fps，50fps作为预警阈值，30fps作为最低底线
+/// 来源：性能需求 - 稳定帧率≥50fps（TV端标准）
+const int kFrameDropThreshold = 50;
 
 /// WebView页面加载超时时间（秒）
 const int kPageLoadTimeoutSeconds = 30;

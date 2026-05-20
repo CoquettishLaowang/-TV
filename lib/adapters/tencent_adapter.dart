@@ -1,5 +1,6 @@
 /// 腾讯视频平台适配器
 /// 实现腾讯视频网页端的TV大屏适配逻辑
+/// 适配规则由RuleEngine统一管理，避免重复定义
 /// 被适配器注册中心管理
 library;
 
@@ -7,6 +8,7 @@ import '../core/base/base_adapter.dart';
 import '../core/constants/platform_constants.dart';
 import '../models/adaptation_config.dart';
 import '../models/platform_info.dart';
+import '../adaptive/rule_engine.dart';
 import '../web/webview_controller.dart';
 
 /// 腾讯视频适配器
@@ -22,48 +24,9 @@ class TencentAdapter extends BasePlatformAdapter {
       );
 
   @override
-  AdaptationConfig get adaptationConfig => AdaptationConfig(
-        platformId: kPlatformTencent,
-        rules: _buildRules(),
-      );
-
-  /// 构建腾讯视频适配规则列表
-  List<AdaptationRule> _buildRules() {
-    return [
-      const AdaptationRule(
-        ruleId: 'tencent_hide_sidebar',
-        ruleType: AdaptationRuleType.hideElement,
-        cssSelector: '.sidebar, .side-bar, .mod-side',
-        cssProperty: 'display',
-        cssValue: 'none !important',
-        priority: 15,
-      ),
-      const AdaptationRule(
-        ruleId: 'tencent_resize_cards',
-        ruleType: AdaptationRuleType.resizeElement,
-        cssSelector: '.list_item, .figure',
-        cssProperty: 'transform',
-        cssValue: 'scale(1.2)',
-        priority: 10,
-      ),
-      const AdaptationRule(
-        ruleId: 'tencent_hide_ad',
-        ruleType: AdaptationRuleType.hideElement,
-        cssSelector: '.ad-banner, .mod-ad',
-        cssProperty: 'display',
-        cssValue: 'none !important',
-        priority: 20,
-      ),
-      const AdaptationRule(
-        ruleId: 'tencent_resize_nav',
-        ruleType: AdaptationRuleType.modifyFontSize,
-        cssSelector: '.site-header, .nav_inner',
-        cssProperty: 'font-size',
-        cssValue: '22px',
-        priority: 12,
-      ),
-    ];
-  }
+  AdaptationConfig get adaptationConfig =>
+      RuleEngine.instance.getConfig(kPlatformTencent) ??
+      const AdaptationConfig(platformId: kPlatformTencent, rules: []);
 
   @override
   String getTvHomePageUrl() => kTencentBaseUrl;

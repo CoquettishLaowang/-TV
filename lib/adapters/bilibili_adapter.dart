@@ -1,5 +1,6 @@
 /// 哔哩哔哩平台适配器
 /// 实现哔哩哔哩网页端的TV大屏适配逻辑
+/// 适配规则由RuleEngine统一管理，避免重复定义
 /// 被适配器注册中心管理
 library;
 
@@ -7,6 +8,7 @@ import '../core/base/base_adapter.dart';
 import '../core/constants/platform_constants.dart';
 import '../models/adaptation_config.dart';
 import '../models/platform_info.dart';
+import '../adaptive/rule_engine.dart';
 import '../web/webview_controller.dart';
 
 /// 哔哩哔哩适配器
@@ -22,48 +24,9 @@ class BilibiliAdapter extends BasePlatformAdapter {
       );
 
   @override
-  AdaptationConfig get adaptationConfig => AdaptationConfig(
-        platformId: kPlatformBilibili,
-        rules: _buildRules(),
-      );
-
-  /// 构建哔哩哔哩适配规则列表
-  List<AdaptationRule> _buildRules() {
-    return [
-      const AdaptationRule(
-        ruleId: 'bilibili_hide_sidebar',
-        ruleType: AdaptationRuleType.hideElement,
-        cssSelector: '.sidebar, .bili-sidebar, .left-nav',
-        cssProperty: 'display',
-        cssValue: 'none !important',
-        priority: 15,
-      ),
-      const AdaptationRule(
-        ruleId: 'bilibili_resize_video_card',
-        ruleType: AdaptationRuleType.resizeElement,
-        cssSelector: '.feed-card, .video-card',
-        cssProperty: 'transform',
-        cssValue: 'scale(1.15)',
-        priority: 10,
-      ),
-      const AdaptationRule(
-        ruleId: 'bilibili_resize_nav',
-        ruleType: AdaptationRuleType.modifyFontSize,
-        cssSelector: '.header, .bili-header',
-        cssProperty: 'font-size',
-        cssValue: '22px',
-        priority: 12,
-      ),
-      const AdaptationRule(
-        ruleId: 'bilibili_hide_banner',
-        ruleType: AdaptationRuleType.hideElement,
-        cssSelector: '.banner, .header-banner',
-        cssProperty: 'display',
-        cssValue: 'none !important',
-        priority: 18,
-      ),
-    ];
-  }
+  AdaptationConfig get adaptationConfig =>
+      RuleEngine.instance.getConfig(kPlatformBilibili) ??
+      const AdaptationConfig(platformId: kPlatformBilibili, rules: []);
 
   @override
   String getTvHomePageUrl() => kBilibiliBaseUrl;

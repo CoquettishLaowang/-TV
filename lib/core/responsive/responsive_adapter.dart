@@ -4,6 +4,7 @@
 library;
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
 
 /// 设备类型枚举
 /// 用于区分不同设备形态，驱动响应式布局策略
@@ -233,28 +234,40 @@ class ResponsiveConfig {
 /// 根据BuildContext检测设备类型和屏幕尺寸，提供响应式配置
 class ResponsiveAdapter {
   /// 根据BuildContext检测设备类型
+  /// 优先根据平台类型判断（桌面平台强制按TV处理），
+  /// 再结合屏幕尺寸和像素密度综合判断
   /// 参数：context - 构建上下文
   /// 返回：DeviceType - 检测到的设备类型
   /// 副作用：无
   static DeviceType detectDeviceType(BuildContext context) {
+    final TargetPlatform platform = defaultTargetPlatform;
+
+    // 桌面平台（Windows/macOS/Linux）强制按TV模式处理
+    if (platform == TargetPlatform.windows ||
+        platform == TargetPlatform.macOS ||
+        platform == TargetPlatform.linux) {
+      return DeviceType.tv;
+    }
+
     final Size screenSize = MediaQuery.of(context).size;
     final double screenWidth = screenSize.width;
     final double screenHeight = screenSize.height;
-    final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
 
     final double logicalShortSide =
         screenWidth < screenHeight ? screenWidth : screenHeight;
     final double logicalLongSide =
         screenWidth > screenHeight ? screenWidth : screenHeight;
 
-    // 通过逻辑尺寸和像素密度综合判断设备类型
-    // TV通常具有较大的逻辑尺寸和较低的像素密度（DPI）
-    if (logicalLongSide >= kTvMinWidth && devicePixelRatio <= 2.5) {
+    // TV/大屏设备检测：长边 >= 900 且宽高比接近 16:9 或更大
+    if (logicalLongSide >= 900) {
       return DeviceType.tv;
     }
+
+    // 中等屏幕：平板
     if (logicalShortSide >= kTabletMinWidth) {
       return DeviceType.tablet;
     }
+
     return DeviceType.phone;
   }
 

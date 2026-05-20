@@ -18,7 +18,7 @@ void main() {
     late CssInjector cssInjector;
 
     setUp(() {
-      ruleEngine = RuleEngine();
+      ruleEngine = RuleEngine.instance;
       cssInjector = CssInjector();
     });
 
@@ -198,7 +198,7 @@ void main() {
 
   group('完整数据流集成测试', () {
     test('从规则引擎到CSS生成的完整流程', () async {
-      final RuleEngine engine = RuleEngine();
+      final RuleEngine engine = RuleEngine.instance;
       final CssInjector injector = CssInjector();
 
       await engine.initialize();

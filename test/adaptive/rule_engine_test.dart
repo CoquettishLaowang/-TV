@@ -12,7 +12,7 @@ void main() {
     late RuleEngine ruleEngine;
 
     setUp(() {
-      ruleEngine = RuleEngine();
+      ruleEngine = RuleEngine.instance;
     });
 
     tearDown(() {

@@ -93,6 +93,37 @@ class JsBridgeMessage {
 /// JS桥接脚本生成器
 /// 生成注入到WebView中的JavaScript代码，用于监听DOM变化和用户交互
 class JsBridgeScriptGenerator {
+  /// 生成UserAgent覆盖脚本
+  /// 覆盖navigator.userAgent和navigator.platform，确保被识别为桌面端
+  /// 参数：userAgent - 要设置的桌面端UserAgent字符串
+  /// 返回：String - JavaScript代码
+  /// 副作用：无
+  static String generateUserAgentOverrideScript(String userAgent) {
+    final String escapedUA = userAgent
+        .replaceAll('\\', '\\\\')
+        .replaceAll("'", "\\'");
+    return '''
+      (function() {
+        Object.defineProperty(navigator, 'userAgent', {
+          get: function() { return '$escapedUA'; },
+          configurable: true
+        });
+        Object.defineProperty(navigator, 'platform', {
+          get: function() { return 'Win32'; },
+          configurable: true
+        });
+        Object.defineProperty(navigator, 'maxTouchPoints', {
+          get: function() { return 0; },
+          configurable: true
+        });
+        Object.defineProperty(navigator, 'vendor', {
+          get: function() { return 'Google Inc.'; },
+          configurable: true
+        });
+      })();
+    ''';
+  }
+
   /// 生成DOM变化监听脚本
   /// 使用MutationObserver监听DOM结构变化，当检测到变化时通知Flutter端
   /// 返回：String - JavaScript代码
@@ -172,14 +203,13 @@ class JsBridgeScriptGenerator {
         .replaceAll('\n', '\\n');
     return '''
       (function() {
-        var existingStyle = document.getElementById("tv-adaptation-style");
-        if (existingStyle) {
-          existingStyle.remove();
+        var style = document.getElementById("tv-adaptation-style");
+        if (!style) {
+          style = document.createElement("style");
+          style.id = "tv-adaptation-style";
+          document.head.appendChild(style);
         }
-        var style = document.createElement("style");
-        style.id = "tv-adaptation-style";
-        style.textContent = '$escapedCss';
-        document.head.appendChild(style);
+        style.textContent += '$escapedCss';
       })();
     ''';
   }

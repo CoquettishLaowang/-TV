@@ -77,15 +77,23 @@ class TvNavigationController extends ChangeNotifier {
   }
 
   /// 处理确认键动作
+  /// 找到当前焦点节点，调用其onConfirm回调
   /// 返回：bool - 是否成功处理
-  /// 副作用：可能触发焦点节点的确认回调
+  /// 副作用：触发焦点节点的确认回调
   bool _handleConfirm() {
     final String? focusedId = _focusManager.currentFocusedNodeId;
     if (focusedId == null) {
       return false;
     }
-    notifyListeners();
-    return true;
+    final NavigationNode? focusedNode = _focusManager.getNode(focusedId);
+    if (focusedNode == null) {
+      return false;
+    }
+    final bool handled = focusedNode.onConfirm?.call() ?? false;
+    if (handled) {
+      notifyListeners();
+    }
+    return handled;
   }
 
   /// 通知导航动作给外部监听者
