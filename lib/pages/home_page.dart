@@ -10,6 +10,7 @@ import '../core/base/base_adapter.dart';
 import '../core/constants/app_constants.dart';
 import '../core/responsive/responsive_adapter.dart';
 import '../adapters/adapter_registry.dart';
+import '../app.dart';
 import '../models/platform_info.dart';
 import '../widgets/tv_focusable.dart';
 import '../widgets/tv_nav_bar.dart';
@@ -166,12 +167,27 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// 导航项选择处理映射
+  /// 每个导航项ID对应不同的页面导航逻辑
+  static const Map<String, String?> _navRouteMap = {
+    'home': null,
+    'favorites': null,
+    'history': null,
+    'settings': kRouteSettings,
+  };
+
   /// 处理导航项选择
+  /// 根据选中项ID执行对应的页面导航
   /// 参数：itemId - 选中的导航项ID
-  /// 副作用：更新选中状态
+  /// 副作用：更新选中状态并可能触发页面导航
   void _handleNavItemSelected(String itemId) {
     setState(() {
       _selectedNavId = itemId;
     });
+
+    final String? route = _navRouteMap[itemId];
+    if (route != null) {
+      Navigator.of(context).pushNamed(route);
+    }
   }
 }

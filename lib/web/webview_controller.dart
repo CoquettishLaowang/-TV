@@ -38,6 +38,9 @@ class TvWebViewController extends ChangeNotifier {
   /// JS桥接消息回调
   final void Function(JsBridgeMessage message)? onBridgeMessage;
 
+  /// 页面加载完成回调，用于在页面DOM就绪后注入CSS等
+  final VoidCallback? onPageFinished;
+
   /// 获取当前WebView状态
   WebViewState get state => _state;
 
@@ -47,7 +50,7 @@ class TvWebViewController extends ChangeNotifier {
   /// 构造函数
   /// 参数：onBridgeMessage - JS桥接消息回调（可选）
   /// 副作用：无
-  TvWebViewController({this.onBridgeMessage});
+  TvWebViewController({this.onBridgeMessage, this.onPageFinished});
 
   /// 初始化WebView控制器
   /// 参数：controller - WebViewController实例
@@ -71,6 +74,7 @@ class TvWebViewController extends ChangeNotifier {
         onPageStarted: _handlePageStarted,
         onPageFinished: _handlePageFinished,
         onWebResourceError: _handleResourceError,
+        onNavigationRequest: _handleNavigationRequest,
       ),
     );
     _setupJavaScriptChannel();
@@ -111,11 +115,12 @@ class TvWebViewController extends ChangeNotifier {
 
   /// 页面加载完成回调
   /// 参数：url - 加载完成的URL
-  /// 副作用：更新状态为loaded，注入JS桥接脚本
+  /// 副作用：更新状态为loaded，注入JS桥接脚本，触发外部页面加载完成回调
   void _handlePageFinished(String url) {
     _currentUrl = url;
     _updateState(WebViewState.loaded);
     _injectBridgeScripts();
+    onPageFinished?.call();
   }
 
   /// 资源加载错误回调
@@ -124,6 +129,20 @@ class TvWebViewController extends ChangeNotifier {
   void _handleResourceError(WebResourceError error) {
     debugPrint('WebView资源加载错误: ${error.description}');
     _updateState(WebViewState.error);
+  }
+
+  /// WebView内部导航请求拦截
+  /// 允许同一主机下的所有导航请求，防止页面跳转被默认拒绝
+  /// 参数：request - 导航请求详情
+  /// 返回：NavigationDecision - 导航决策（允许或阻止）
+  /// 副作用：无
+  NavigationDecision _handleNavigationRequest(NavigationRequest request) {
+    final Uri currentUri = Uri.tryParse(_currentUrl) ?? Uri();
+    final Uri requestUri = Uri.tryParse(request.url) ?? Uri();
+    if (currentUri.host == requestUri.host) {
+      return NavigationDecision.navigate;
+    }
+    return NavigationDecision.navigate;
   }
 
   /// 注入JS桥接脚本

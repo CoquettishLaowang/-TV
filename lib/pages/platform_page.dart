@@ -50,19 +50,19 @@ class _PlatformPageState extends State<PlatformPage> {
   @override
   void initState() {
     super.initState();
+    _adapter = AdapterRegistry.instance.getAdapter(widget.platformId);
     _webViewController = TvWebViewController(
       onBridgeMessage: _handleBridgeMessage,
+      onPageFinished: _applyAdaptation,
     );
-    _adapter = AdapterRegistry.instance.getAdapter(widget.platformId);
     _initializeAsync();
   }
 
   /// 异步初始化
-  /// 加载规则引擎并注入适配CSS
+  /// 加载规则引擎，CSS适配注入由onPageFinished回调触发
   /// 副作用：初始化规则引擎
   Future<void> _initializeAsync() async {
     await _ruleEngine.initialize();
-    _applyAdaptation();
   }
 
   /// 处理JS桥接消息
