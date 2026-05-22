@@ -50,8 +50,9 @@ class TvVideoHubApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: kAppName,
-        theme: buildLightTheme(),
+          title: kAppName,
+          navigatorKey: navigatorKey,
+          theme: buildLightTheme(),
         darkTheme: buildDarkTheme(),
         themeMode: ThemeMode.dark,
         initialRoute: kRouteHome,
@@ -66,18 +67,34 @@ class TvVideoHubApp extends StatelessWidget {
   }
 
   /// 处理全局导航动作
-  /// 当前设计说明：
-  ///   - 导航动作（返回/菜单/首页）由各页面通过 PopScope 和自定义回调自行处理，
-  ///     而非在此处统一执行 Navigator.pop()
-  ///   - 这样做的好处是每个页面可以独立控制返回逻辑（如确认弹窗、保存状态等），
-  ///     避免全局导航器与页面状态不一致
-  ///   - 返回键 → 各页面的 onGoBack 回调（PlatformPage/PlayerPage 的 PopScope 内处理）
-  ///   - 菜单键 → 预留入口，后续版本可在此展示全局菜单 Overlay/Drawer
-  ///   - 如需统一导航行为，可在各页面的 onGoBack 回调实现完成后移除此方法
+  /// 与各页面的PopScope形成双通道导航架构：
+  ///   - 遥控器按键通道（本方法）：KeyEventHandler捕获遥控器按键 →
+  ///     TvNavigationController → 本方法 → navigatorKey执行页面跳转
+  ///   - 系统返回通道（PopScope）：Android系统返回键/手势 →
+  ///     PopScope.onPopInvokedWithResult → 页面自定义onGoBack回调
+  /// 两个通道互不干扰，确保在不同TV硬件平台上的兼容性
+  ///
+  /// 导航动作映射：
+  ///   - goBack：后退一页（Navigator.pop），与各页面的PopScope.onGoBack行为一致
+  ///   - menu：回到首页（popUntil first），符合TV遥控器菜单键的通用交互惯例
+  ///   - home：回到首页，与menu行为一致
+  ///
   /// 参数：action - 遥控器导航动作
-  /// 副作用：仅为日志记录，实际导航由各页面自行处理
+  /// 副作用：执行实际的Navigator页面跳转
   void _handleGlobalNavigation(RemoteKeyAction action) {
-    debugPrint('全局导航动作: $action');
+    switch (action) {
+      case RemoteKeyAction.goBack:
+        if (navigatorKey.currentState?.canPop() ?? false) {
+          navigatorKey.currentState?.pop();
+          debugPrint('全局导航: 返回上一页');
+        }
+      case RemoteKeyAction.menu:
+      case RemoteKeyAction.home:
+        navigatorKey.currentState?.popUntil((route) => route.isFirst);
+        debugPrint('全局导航: 回到首页');
+      case _:
+        debugPrint('全局导航动作: $action');
+    }
   }
 
   /// 处理动态路由生成

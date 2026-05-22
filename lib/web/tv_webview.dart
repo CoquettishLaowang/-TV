@@ -53,6 +53,12 @@ class _TvWebViewState extends State<TvWebView> {
             WebViewWidget(controller: _innerController),
             if (widget.controller.state == WebViewState.loading)
               _buildLoadingOverlay(),
+            // WebViewState.error 当前为预留状态，正常使用中不会触发
+            // 原因：webview_flutter 4.x 的 WebResourceError 不提供 isForMainFrame 属性，
+            // 无法区分主页面加载失败和子资源（图片/样式/脚本）404错误
+            // 若对任意资源错误展示全局error遮罩，将影响正常浏览（单个图片404即全屏遮罩）
+            // 此状态保留供后续版本使用：当webview_flutter提供主帧错误检测能力时，
+            // 可在 onReceivedError 中判别 isForMainFrame 后设置 WebViewState.error
             if (widget.controller.state == WebViewState.error)
               _buildErrorOverlay(),
           ],

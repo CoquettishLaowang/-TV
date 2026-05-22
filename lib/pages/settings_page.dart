@@ -243,4 +243,13 @@ class _SettingsPageState extends State<SettingsPage> {
       );
     }
   }
+
+  @override
+  void dispose() {
+    // 设置页创建的MemoryManager实例仅用于获取瞬时内存快照(currentMemoryMb)
+    // 未调用startMonitoring()故无周期性Timer，但dispose()会清理NotifyListeners和内部资源
+    // 这与MemoryManager的设计契约一致：无论是否启动监控，dispose()都是安全且必要的
+    _memoryManager.dispose();
+    super.dispose();
+  }
 }

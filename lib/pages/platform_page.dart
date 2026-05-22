@@ -67,6 +67,12 @@ class _PlatformPageState extends State<PlatformPage> {
   /// 规则引擎单例引用，统一管理适配规则
   RuleEngine get _ruleEngine => RuleEngine.instance;
 
+  /// DOM变化处理并发守卫
+  /// 防止上一次captureSnapshot尚未完成时新消息再次进入
+  /// 因为captureSnapshot通过JS bridge查询WebView DOM，是异步操作，
+  /// 并发调用会导致快照数据交错和重新适配流程重复触发
+  bool _isProcessingDomChange = false;
+
   @override
   void initState() {
     super.initState();
@@ -93,29 +99,44 @@ class _PlatformPageState extends State<PlatformPage> {
   /// 处理DOM结构变化
   /// 捕获当前DOM快照，对比之前快照检测是否发生显著变化
   /// 若检测到变化则触发重新适配流程
+  ///
+  /// 并发控制：使用_isProcessingDomChange标志确保同一时刻只有一个DOM变化处理在执行
+  /// JS端的MutationObserver已设置500ms防抖，正常情况下不会发生并发调用
+  /// 此守卫作为防御性编程的第二层保护
+  ///
   /// 副作用：捕获DOM快照，可能重新注入CSS
   Future<void> _handleDomChange() async {
     if (_adapter == null || _webViewController.state != WebViewState.loaded) {
       return;
     }
 
-    final DomSnapshot currentSnapshot = await _domAnalyzer.captureSnapshot(
-      _webViewController,
-      widget.platformId,
-    );
-
-    final bool hasChanged = _domAnalyzer.hasSignificantChange(
-      widget.platformId,
-      currentSnapshot,
-    );
-
-    if (!hasChanged) {
+    if (_isProcessingDomChange) {
+      debugPrint('DOM变化处理正在进行中，跳过本次检测');
       return;
     }
+    _isProcessingDomChange = true;
 
-    debugPrint('检测到${widget.platformId}页面格式变化，开始重新适配...');
-    await _performReadaptation();
-    debugPrint('${widget.platformId}重新适配完成');
+    try {
+      final DomSnapshot currentSnapshot = await _domAnalyzer.captureSnapshot(
+        _webViewController,
+        widget.platformId,
+      );
+
+      final bool hasChanged = _domAnalyzer.hasSignificantChange(
+        widget.platformId,
+        currentSnapshot,
+      );
+
+      if (!hasChanged) {
+        return;
+      }
+
+      debugPrint('检测到${widget.platformId}页面格式变化，开始重新适配...');
+      await _performReadaptation();
+      debugPrint('${widget.platformId}重新适配完成');
+    } finally {
+      _isProcessingDomChange = false;
+    }
   }
 
   /// 页面加载完成后捕获初始DOM快照

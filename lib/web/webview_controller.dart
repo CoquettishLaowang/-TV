@@ -133,22 +133,33 @@ class TvWebViewController extends ChangeNotifier {
     debugPrint('WebView资源加载错误: ${error.description} (code: ${error.errorCode})');
   }
 
-  /// WebView内部导航请求拦截
-  /// 允许同一主机下的所有导航请求，防止页面跳转被默认拒绝
-  /// 参数：request - 导航请求详情
-  /// 返回：NavigationDecision - 导航决策（允许或阻止）
-  /// 副作用：无
+  /// 处理WebView导航请求
+  /// 当前策略：允许所有导航请求通过
+  ///
+  /// 设计决策理由：
+  ///   - 视频平台页面会跳转到CDN域名（视频分发）、第三方支付、OAuth登录等外部地址
+  ///   - 如果限制同源导航（return NavigationDecision.prevent），这些功能将无法正常工作
+  ///   - 后续版本如需安全限制，可维护白名单域名列表匹配 requestUri.host
+  ///
+  /// 参数：request - WebView发出的导航请求，包含目标URL
+  /// 返回：NavigationDecision.navigate - 始终允许导航
+  /// 副作用：无（不修改状态，纯路由决策）
   NavigationDecision _handleNavigationRequest(NavigationRequest request) {
-    final Uri currentUri = Uri.tryParse(_currentUrl) ?? Uri();
-    final Uri requestUri = Uri.tryParse(request.url) ?? Uri();
-    if (currentUri.host == requestUri.host) {
-      return NavigationDecision.navigate;
-    }
+    debugPrint('WebView导航请求: ${request.url}');
     return NavigationDecision.navigate;
   }
 
   /// 注入JS桥接脚本
   /// 在页面加载完成后注入UserAgent覆盖、DOM观察器、页面加载通知和视频状态监听
+  ///
+  /// 执行策略：4次独立的runJavaScript调用（而非合并为1次）
+  ///   - 设计理由：4个桥接脚本功能相互独立（UA覆盖/DOM监听/页面通知/视频监听），
+  ///     使用独立调用可保证单个脚本语法错误不影响其他脚本的正常执行
+  ///   - 对比CSS注入：CSS使用1次批量注入是因为CSS规则相互依赖，部分注入会导致布局错误
+  ///     · 桥接脚本相互独立，部分失败只影响对应的功能子集，不会影响全局
+  ///   - 执行顺序：UA覆盖必须首先生效（否则页面JS可能读取原始UA），后续按重要性排列
+  ///   - 性能影响：4次runJavaScript增加约4-12ms延迟，对于页面加载阶段可忽略不计
+  ///
   /// 副作用：向WebView注入JavaScript代码
   void _injectBridgeScripts() {
     if (_webViewController == null) {
