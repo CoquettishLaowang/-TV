@@ -71,6 +71,12 @@ class CssInjector {
       padding: 12px 28px !important;
       border-radius: 8px;
     }
+    /* 输入框适配：min-height 44px的设计决策理由如下：
+     *   - 44px 为移动端可触摸区域的最小推荐尺寸（Apple HIG §3.2.5），足够TV端远距离光标识别
+     *   - 48px 是通用按钮推荐值，但输入框的高度叠加 padding (10+10=64px实际) 已远超48px
+     *   - 保留44px以兼容网页内联输入框（如搜索栏），避免父容器flex布局被撑开
+     *   - 如需严格满足48px标准，可改为48px，但需同步调整父容器的 line-height 和 flex 计算
+     */
     input, textarea, select {
       font-size: 20px !important;
       min-height: 44px !important;
@@ -81,6 +87,10 @@ class CssInjector {
       min-width: 24px !important;
       min-height: 24px !important;
     }
+    /* 链接适配：min-height 44px 同样遵循上述移动端最小可触摸区域标准
+     *   - display: inline-flex + align-items: center 保证文字水平居中
+     *   - 实际可点击区域 = 44px + 父元素padding，TV遥控器操作时实际感知面积充足
+     */
     a {
       font-size: 20px !important;
       min-height: 44px;

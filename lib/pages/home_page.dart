@@ -244,7 +244,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// 导航项选择处理映射
-  /// 每个导航项ID对应不同的页面导航逻辑
+  /// 设计说明：
+  ///   - 'favorites'/'history' 当前映射为 null，表示功能尚未实现，保留导航项UI作为预留入口
+  ///   - 仅 'settings' 有实际路由实现（跳转到设置页面）
+  ///   - 后续版本实现收藏和历史功能时，在此映射中加入对应路由常量
+  ///   - 各导航项使用 TvFocusable 但未注册到 NavigationNode 网格图，
+  ///     因为横向导航栏使用Flutter内置Focus遍历而非自定义邻居图，
+  ///     TvFocusable 的 FocusNode 已支持横向Tab键导航，满足遥控器左右键导航需求
   static const Map<String, String?> _navRouteMap = {
     'home': null,
     'favorites': null,

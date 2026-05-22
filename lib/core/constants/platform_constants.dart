@@ -90,7 +90,12 @@ const String kDouyinVideoCardSelector = '.video-card, .feed-card';
 /// WebView User-Agent后缀，标识TV端请求
 const String kTvUserAgentSuffix = 'TVVideoHub/1.0 (TV; LargeScreen)';
 
-/// 桌面端 Chrome User-Agent，确保视频网站返回PC网页版
+/// 桌面端 Chrome User-Agent，确保视频网站返回PC网页版（非手机版）
+/// 设计说明：使用固定Chrome 125版本的UA字符串
+///   - 优点：避免移动端UA触发视频网站的简化/移动版页面，确保TV大屏获得完整PC布局
+///   - 权衡：硬编码版本号可能在Chrome 125过时后触发部分网站的安全提示（"浏览器版本过旧"）
+///   - 后续改进方向：支持远程配置最新的桌面端UA字符串，通过Firebase Remote Config或自建配置服务下发
+///   - 当前版本通过 Object.defineProperty 在页面加载前注入，优先级高于服务端UA检测
 const String kDesktopUserAgent =
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
     '(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 TVVideoHub/1.0';

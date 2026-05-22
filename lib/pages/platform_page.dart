@@ -19,6 +19,19 @@ import '../widgets/tv_scaffold.dart';
 
 /// 平台页面
 /// 加载选定视频平台的WebView并应用TV适配CSS
+///
+/// 架构说明 — WebView内遥控器导航：
+///   - 当前WebView内的DOM元素焦点导航由注入的CSS焦点样式(.tv-focus-highlight)提供视觉反馈
+///   - Flutter层的TvNavigationController仅管理Flutter Widget的导航节点，无法直接控制WebView内DOM
+///   - WebView内焦点移动需通过JS桥接实现：Flutter发送方向命令 → JS在DOM元素间切换焦点样式
+///   - 已预留 TvBridge 通信通道和 tv-focus-highlight CSS类，后续版本可在此添加WebView内导航逻辑
+///
+/// 架构说明 — 重新适配机制：
+///   - 当DomAnalyzer检测到页面格式变化(差异度≥0.5)时，_performReadaptation()会检查适配器状态并重新注入CSS
+///   - 当前重新适配策略为"重注入现有规则 + 规则版本号递增"，不生成新规则
+///   - 因为每个CSS规则使用多候选选择器(如.nav-wrap, .header-nav)，覆盖了同一元素的不同类名变体
+///   - 大部分平台改版仅修改类名而不改变DOM语义结构，多候选选择器可吸收此类小改动
+///   - 对于大规模改版需要新增规则，可通过 RuleEngine.addRule() 在后续版本中动态添加
 class PlatformPage extends StatefulWidget {
   /// 当前选中的平台ID
   final String platformId;

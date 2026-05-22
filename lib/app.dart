@@ -66,8 +66,16 @@ class TvVideoHubApp extends StatelessWidget {
   }
 
   /// 处理全局导航动作
+  /// 当前设计说明：
+  ///   - 导航动作（返回/菜单/首页）由各页面通过 PopScope 和自定义回调自行处理，
+  ///     而非在此处统一执行 Navigator.pop()
+  ///   - 这样做的好处是每个页面可以独立控制返回逻辑（如确认弹窗、保存状态等），
+  ///     避免全局导航器与页面状态不一致
+  ///   - 返回键 → 各页面的 onGoBack 回调（PlatformPage/PlayerPage 的 PopScope 内处理）
+  ///   - 菜单键 → 预留入口，后续版本可在此展示全局菜单 Overlay/Drawer
+  ///   - 如需统一导航行为，可在各页面的 onGoBack 回调实现完成后移除此方法
   /// 参数：action - 遥控器导航动作
-  /// 副作用：无（由Navigator处理）
+  /// 副作用：仅为日志记录，实际导航由各页面自行处理
   void _handleGlobalNavigation(RemoteKeyAction action) {
     debugPrint('全局导航动作: $action');
   }

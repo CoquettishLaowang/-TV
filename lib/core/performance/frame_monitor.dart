@@ -197,6 +197,14 @@ class FrameMonitor extends ChangeNotifier {
   }
 
   @override
+  /// dispose()设计说明：
+  ///   - Flutter的SchedulerBinding.addPersistentFrameCallback 注册的回调
+  ///     在SchedulerBinding生命周期内持续有效，无直接的remove API
+  ///   - 通过设置 _isMonitoring = false 标志，每次回调都会做早期返回（见_onFrame首行检查）
+  ///   - 这是Flutter中停止PersistentFrameCallback的标准做法，
+  ///     参考 SchedulerBinding.handleDrawFrame 的实现模式
+  ///   - 副作用：回调函数对象仍保留在SchedulerBinding的_callbacks列表中，
+  ///     但不执行任何操作，内存开销可忽略（单个闭包引用）
   void dispose() {
     _isMonitoring = false;
     _samples.clear();

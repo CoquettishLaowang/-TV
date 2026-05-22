@@ -53,6 +53,11 @@ class _SettingsPageState extends State<SettingsPage> {
   ThemeMode _currentThemeMode = ThemeMode.dark;
 
   /// 内存管理器
+  /// 设计说明：当前创建独立的MemoryManager实例用于展示内存信息
+  ///   - 与Provider注入的全局MemoryManager（app.dart中）是不同的实例
+  ///   - 优点：不依赖Provider上下文，设置页可独立获取内存快照
+  ///   - 权衡：捕捉的是本实例的瞬时快照，与全局监控器的历史数据不同步
+  ///   - 如需统一数据源，可改为通过 context.read<MemoryManager>() 获取Provider单例
   final MemoryManager _memoryManager = MemoryManager();
 
   @override

@@ -232,6 +232,22 @@ class ResponsiveConfig {
 
 /// 响应式布局适配器
 /// 根据BuildContext检测设备类型和屏幕尺寸，提供响应式配置
+///
+/// 平台兼容性说明：
+///   - 当前完整支持的TV操作系统：Android TV（通过android-arm64 APK + webview_flutter Android平台）
+///   - Windows/macOS/Linux：通过 detectDeviceType 强制按TV处理，用于开发调试
+///   - Tizen（三星智能电视）：需 Flutter Embedded 引擎 + Tizen平台通道，当前未集成
+///     · 三星Tizen开发者文档: https://developer.samsung.com/smarttv
+///     · Flutter Embedded参考: https://github.com/sony/flutter-embedded-linux
+///   - WebOS（LG智能电视）：同需 Flutter Embedded 引擎，当前未集成
+///     · LG WebOS开发者文档: https://webostv.developer.lge.com
+///
+/// 分辨率适配说明：
+///   - TV配置基于1920×1080（1080p）标准分辨率设计
+///   - 4K（3840×2160）屏幕因逻辑像素密度通常为2x，实际逻辑尺寸仍为1920×1080，
+///     当前配置可自动适配大多数4K设备
+///   - 对于像素密度为1x的4K大屏设备，CSS媒体查询 ≥1920px 断点可部分覆盖，
+///     后续可添加专门的4K ResponsiveConfig预设
 class ResponsiveAdapter {
   /// 根据BuildContext检测设备类型
   /// 优先根据平台类型判断（桌面平台强制按TV处理），

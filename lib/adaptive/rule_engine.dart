@@ -9,6 +9,19 @@ import '../models/adaptation_config.dart';
 /// 规则引擎
 /// 负责适配规则的加载、缓存、匹配和动态更新
 /// 单例模式，作为所有适配规则的唯一权威来源
+///
+/// 规则更新机制说明：
+///   - 当前所有适配规则在 _loadDefaultRules() 中硬编码定义，发版时随APK更新
+///   - 优点：零网络依赖，离线可用，规则加载速度为常量初始化级别（无IO等待）
+///   - 权衡：平台网页改版后需发版APK才能更新规则，无法热修复
+///   - 后续改进方向：引入远程规则服务（如Firebase Remote Config / 自建配置API），
+///     在 initialize() 中增加远程拉取逻辑 → 合并到 _configCache → 标记远程版本号
+///   - 降级策略：远程拉取失败时使用本地硬编码规则作为fallback，保证基本可用性
+///
+/// 文件组织说明：
+///   - 当前文件约830行，主要长度来自5个平台的 _buildXxxRules() 方法（共约565行）
+///   - 这些规则方法逻辑相同（返回规则列表），可提取为独立的 platform_rules.dart 文件
+///   - 提取后RuleEngine保留加载、缓存、查询、更新逻辑（约250行），符合模块≤500行规范
 class RuleEngine {
   /// 单例实例
   static final RuleEngine _instance = RuleEngine._internal();
