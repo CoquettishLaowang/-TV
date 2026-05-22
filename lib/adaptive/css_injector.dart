@@ -34,6 +34,7 @@ class CssInjector {
   ''';
 
   /// TV布局完整转换CSS - 将PC网页转换为TV大屏布局
+  /// 公开引用供外部批量生成CSS使用
   static const String _tvLayoutTransformCss = '''
     body {
       zoom: 1.0;
@@ -116,6 +117,9 @@ class CssInjector {
     }
   ''';
 
+  /// TV布局转换CSS公开常量
+  static const String layoutAdjustmentCss = _tvLayoutTransformCss;
+
   static const String _tvMediaQueryCss = '''
     @media screen and (min-width: 1280px) {
       body {
@@ -138,6 +142,149 @@ class CssInjector {
     }
   ''';
 
+  /// 视频播放器优化CSS
+  static const String _tvVideoCss = '''
+    video {
+      width: 100vw !important;
+      height: auto !important;
+      max-height: 70vh;
+      object-fit: contain;
+      background: #000;
+    }
+    .video-player, .player-container, [class*="player"] {
+      width: 100vw !important;
+      max-width: 100vw !important;
+    }
+    .video-player video, .player-container video, [class*="player"] video {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .video-player button, .player-container button, [class*="player"] button,
+    .video-player .control-btn, [class*="player"] .control-btn {
+      min-width: 56px !important;
+      min-height: 56px !important;
+      font-size: 22px !important;
+      padding: 10px 16px !important;
+    }
+    .video-player input[type="range"],
+    .player-container input[type="range"],
+    [class*="player"] input[type="range"] {
+      height: 10px !important;
+      min-height: 10px !important;
+    }
+    .video-player .progress-bar,
+    .player-container .progress-bar,
+    [class*="player"] .progress-bar {
+      height: 8px !important;
+    }
+    .video-player .volume-slider,
+    .player-container .volume-slider,
+    [class*="player"] .volume-slider {
+      height: 8px !important;
+    }
+    .video-player .time-display,
+    .player-container .time-display,
+    [class*="player"] .time-display {
+      font-size: 20px !important;
+    }
+    .video-player .quality-btn,
+    .player-container .quality-btn,
+    [class*="player"] .quality-btn,
+    .video-player .fullscreen-btn,
+    .player-container .fullscreen-btn {
+      min-width: 56px !important;
+      min-height: 56px !important;
+      font-size: 20px !important;
+    }
+  ''';
+
+  /// 视频播放器优化CSS公开常量
+  static const String videoPlayerOptimizationCss = _tvVideoCss;
+
+  /// 布局调整CSS - 将网页多列布局转为TV单/双列
+  static const String _tvLayoutCss = '''
+    .main-content, [class*="main"], [class*="content"] {
+      max-width: 100vw;
+      padding: 0 48px;
+      margin: 0;
+    }
+    .grid-view, [class*="grid"], [class*="list"] {
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .sidebar, [class*="sidebar"], [class*="side-bar"], [class*="aside"] {
+      display: none !important;
+    }
+    .container, .wrap, .wrapper, [class*="container"], [class*="wrapper"] {
+      max-width: 100vw !important;
+      padding: 16px 48px !important;
+    }
+    .page, .page-content, [class*="page"] {
+      width: 100vw !important;
+      max-width: 100vw !important;
+    }
+    section, .section, [class*="section"] {
+      padding: 24px 0;
+    }
+    .row, [class*="row"] {
+      margin: 0 -12px;
+    }
+    .col, [class*="col"] {
+      padding: 12px;
+    }
+    .video-list, .card-list, [class*="list"] {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .video-list > *, .card-list > *, [class*="list"] > * {
+      width: 100%;
+    }
+    .modal, .dialog, .popup, .overlay, [class*="modal"], [class*="dialog"] {
+      max-width: 90vw;
+      max-height: 85vh;
+    }
+    .modal input, .dialog input, .popup input, .overlay input,
+    [class*="modal"] input, [class*="dialog"] input {
+      font-size: 20px !important;
+      min-height: 48px !important;
+    }
+    .modal button, .dialog button, .popup button, .overlay button,
+    [class*="modal"] button, [class*="dialog"] button {
+      min-height: 52px !important;
+      font-size: 20px !important;
+      padding: 12px 28px !important;
+    }
+    .tab-bar, .tabs, [class*="tab"] {
+      font-size: 20px !important;
+    }
+    .tab-bar a, .tabs a, [class*="tab"] a, .tab-item {
+      padding: 14px 28px !important;
+      font-size: 20px !important;
+      min-width: 100px;
+    }
+    .dropdown, .select, [class*="dropdown"], [class*="select"] {
+      font-size: 20px !important;
+      min-height: 44px !important;
+    }
+    .pagination, [class*="pagination"], .page-nav {
+      font-size: 20px !important;
+    }
+    .pagination a, [class*="pagination"] a, .page-nav a,
+    .pagination button, [class*="pagination"] button {
+      min-width: 48px !important;
+      min-height: 48px !important;
+      font-size: 20px !important;
+    }
+    footer, .footer, [class*="footer"] {
+      font-size: 18px !important;
+      padding: 24px 48px !important;
+    }
+  ''';
+
+  /// 布局调整CSS公开常量
+  static const String tvLayoutCss = _tvLayoutCss;
+
   /// 生成完整的TV适配CSS代码
   /// 将基础CSS与平台特定规则合并
   /// 参数：config - 适配配置
@@ -156,6 +303,62 @@ class CssInjector {
     buffer.writeln(_tvMediaQueryCss);
     buffer.writeln();
     buffer.writeln(config.generateCss());
+    return buffer.toString();
+  }
+
+  /// 生成焦点样式CSS（返回字符串，不直接注入）
+  /// 参数：selectors - 可聚焦元素CSS选择器列表
+  /// 返回：String - 焦点样式CSS
+  /// 副作用：无
+  String generateFocusCss(List<String> selectors) {
+    final StringBuffer buffer = StringBuffer();
+    buffer.writeln('/* TV焦点样式 */');
+    for (final String selector in selectors) {
+      buffer.writeln('''
+        $selector {
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        $selector:focus, $selector.tv-focus-highlight {
+          outline: 3px solid #1A91FF;
+          outline-offset: 2px;
+          box-shadow: 0 0 12px rgba(26, 145, 255, 0.5);
+          transform: scale(1.05);
+          z-index: 10;
+        }
+      ''');
+    }
+    return buffer.toString();
+  }
+
+  /// 一次性生成平台全部适配CSS（含基础、布局、媒体查询、平台规则、焦点、视频）
+  /// 用于批量注入，避免多次runJavaScript导致的不可靠问题
+  /// 参数：config - 适配配置 / focusSelectors - 焦点元素选择器列表
+  /// 返回：String - 完整CSS代码
+  /// 副作用：无
+  String generateAllPlatformCss(
+    AdaptationConfig config,
+    List<String> focusSelectors,
+  ) {
+    final StringBuffer buffer = StringBuffer();
+    buffer.writeln('/* TV Video Hub - 完整适配CSS */');
+    buffer.writeln('/* 平台: ${config.platformId} 版本: ${config.configVersion} */');
+    buffer.writeln();
+    buffer.writeln(_tvBaseCss);
+    buffer.writeln();
+    buffer.writeln(_tvLayoutTransformCss);
+    buffer.writeln();
+    buffer.writeln(_tvMediaQueryCss);
+    buffer.writeln();
+    buffer.writeln(config.generateCss());
+    buffer.writeln();
+    buffer.writeln(_tvVideoCss);
+    buffer.writeln();
+    buffer.writeln(_tvLayoutCss);
+    if (focusSelectors.isNotEmpty) {
+      buffer.writeln();
+      buffer.writeln(generateFocusCss(focusSelectors));
+    }
     return buffer.toString();
   }
 
@@ -178,24 +381,7 @@ class CssInjector {
     TvWebViewController controller,
     List<String> selectors,
   ) {
-    final StringBuffer buffer = StringBuffer();
-    buffer.writeln('/* TV焦点样式 */');
-    for (final String selector in selectors) {
-      buffer.writeln('''
-        $selector {
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        $selector:focus, $selector.tv-focus-highlight {
-          outline: 3px solid #1A91FF;
-          outline-offset: 2px;
-          box-shadow: 0 0 12px rgba(26, 145, 255, 0.5);
-          transform: scale(1.05);
-          z-index: 10;
-        }
-      ''');
-    }
-    controller.injectCss(buffer.toString());
+    controller.injectCss(generateFocusCss(selectors));
   }
 
   /// 注入视频播放器优化CSS
@@ -203,61 +389,7 @@ class CssInjector {
   /// 参数：controller - WebView控制器
   /// 副作用：向WebView注入视频播放器样式
   void injectVideoPlayerOptimization(TvWebViewController controller) {
-    const String videoCss = '''
-      video {
-        width: 100vw !important;
-        height: auto !important;
-        max-height: 70vh;
-        object-fit: contain;
-        background: #000;
-      }
-      .video-player, .player-container, [class*="player"] {
-        width: 100vw !important;
-        max-width: 100vw !important;
-      }
-      .video-player video, .player-container video, [class*="player"] video {
-        width: 100% !important;
-        height: auto !important;
-      }
-      .video-player button, .player-container button, [class*="player"] button,
-      .video-player .control-btn, [class*="player"] .control-btn {
-        min-width: 56px !important;
-        min-height: 56px !important;
-        font-size: 22px !important;
-        padding: 10px 16px !important;
-      }
-      .video-player input[type="range"],
-      .player-container input[type="range"],
-      [class*="player"] input[type="range"] {
-        height: 10px !important;
-        min-height: 10px !important;
-      }
-      .video-player .progress-bar,
-      .player-container .progress-bar,
-      [class*="player"] .progress-bar {
-        height: 8px !important;
-      }
-      .video-player .volume-slider,
-      .player-container .volume-slider,
-      [class*="player"] .volume-slider {
-        height: 8px !important;
-      }
-      .video-player .time-display,
-      .player-container .time-display,
-      [class*="player"] .time-display {
-        font-size: 20px !important;
-      }
-      .video-player .quality-btn,
-      .player-container .quality-btn,
-      [class*="player"] .quality-btn,
-      .video-player .fullscreen-btn,
-      .player-container .fullscreen-btn {
-        min-width: 56px !important;
-        min-height: 56px !important;
-        font-size: 20px !important;
-      }
-    ''';
-    controller.injectCss(videoCss);
+    controller.injectCss(_tvVideoCss);
   }
 
   /// 注入布局调整CSS
@@ -265,85 +397,6 @@ class CssInjector {
   /// 参数：controller - WebView控制器
   /// 副作用：向WebView注入布局样式
   void injectLayoutAdjustment(TvWebViewController controller) {
-    const String layoutCss = '''
-      .main-content, [class*="main"], [class*="content"] {
-        max-width: 100vw;
-        padding: 0 48px;
-        margin: 0;
-      }
-      .grid-view, [class*="grid"], [class*="list"] {
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 24px;
-      }
-      .sidebar, [class*="sidebar"], [class*="side-bar"], [class*="aside"] {
-        display: none !important;
-      }
-      .container, .wrap, .wrapper, [class*="container"], [class*="wrapper"] {
-        max-width: 100vw !important;
-        padding: 16px 48px !important;
-      }
-      .page, .page-content, [class*="page"] {
-        width: 100vw !important;
-        max-width: 100vw !important;
-      }
-      section, .section, [class*="section"] {
-        padding: 24px 0;
-      }
-      .row, [class*="row"] {
-        margin: 0 -12px;
-      }
-      .col, [class*="col"] {
-        padding: 12px;
-      }
-      .video-list, .card-list, [class*="list"] {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 24px;
-      }
-      .video-list > *, .card-list > *, [class*="list"] > * {
-        width: 100%;
-      }
-      .modal, .dialog, .popup, .overlay, [class*="modal"], [class*="dialog"] {
-        max-width: 90vw;
-        max-height: 85vh;
-      }
-      .modal input, .dialog input, .popup input, .overlay input,
-      [class*="modal"] input, [class*="dialog"] input {
-        font-size: 20px !important;
-        min-height: 48px !important;
-      }
-      .modal button, .dialog button, .popup button, .overlay button,
-      [class*="modal"] button, [class*="dialog"] button {
-        min-height: 52px !important;
-        font-size: 20px !important;
-        padding: 12px 28px !important;
-      }
-      .tab-bar, .tabs, [class*="tab"] {
-        font-size: 20px !important;
-      }
-      .tab-bar a, .tabs a, [class*="tab"] a, .tab-item {
-        padding: 14px 28px !important;
-        font-size: 20px !important;
-        min-width: 100px;
-      }
-      .dropdown, .select, [class*="dropdown"], [class*="select"] {
-        font-size: 20px !important;
-        min-height: 44px !important;
-      }
-      .pagination, [class*="pagination"], .page-nav {
-        font-size: 20px !important;
-      }
-      .pagination a, [class*="pagination"] a, .page-nav a,
-      .pagination button, [class*="pagination"] button {
-        min-width: 48px !important;
-        min-height: 48px !important;
-        font-size: 20px !important;
-      }
-      footer, .footer, [class*="footer"] {
-        font-size: 18px !important;
-        padding: 24px 48px !important;
-      }
-    ''';
-    controller.injectCss(layoutCss);
+    controller.injectCss(_tvLayoutCss);
   }
 }

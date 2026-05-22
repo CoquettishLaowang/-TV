@@ -126,11 +126,11 @@ class TvWebViewController extends ChangeNotifier {
   }
 
   /// 资源加载错误回调
+  /// 仅记录日志，不切换全局状态——WebView已内置错误页面展示
   /// 参数：error - Web资源错误信息
-  /// 副作用：更新状态为error
+  /// 副作用：无
   void _handleResourceError(WebResourceError error) {
-    debugPrint('WebView资源加载错误: ${error.description}');
-    _updateState(WebViewState.error);
+    debugPrint('WebView资源加载错误: ${error.description} (code: ${error.errorCode})');
   }
 
   /// WebView内部导航请求拦截
@@ -148,7 +148,7 @@ class TvWebViewController extends ChangeNotifier {
   }
 
   /// 注入JS桥接脚本
-  /// 在页面加载完成后注入DOM观察器和视频状态监听
+  /// 在页面加载完成后注入UserAgent覆盖、DOM观察器、页面加载通知和视频状态监听
   /// 副作用：向WebView注入JavaScript代码
   void _injectBridgeScripts() {
     if (_webViewController == null) {
@@ -159,6 +159,9 @@ class TvWebViewController extends ChangeNotifier {
     );
     _webViewController!.runJavaScript(
       JsBridgeScriptGenerator.generateDomObserverScript(),
+    );
+    _webViewController!.runJavaScript(
+      JsBridgeScriptGenerator.generatePageLoadedScript(),
     );
     _webViewController!.runJavaScript(
       JsBridgeScriptGenerator.generateVideoStatusScript(),

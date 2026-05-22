@@ -125,19 +125,27 @@ class JsBridgeScriptGenerator {
   }
 
   /// 生成DOM变化监听脚本
-  /// 使用MutationObserver监听DOM结构变化，当检测到变化时通知Flutter端
+  /// 使用MutationObserver监听DOM结构变化，带500ms防抖避免频繁触发
+  /// 当检测到变化时通知Flutter端
   /// 返回：String - JavaScript代码
   /// 副作用：无
   static String generateDomObserverScript() {
     return '''
       (function() {
+        var domDebounceTimer = null;
         var observer = new MutationObserver(function(mutations) {
-          var changeCount = mutations.length;
-          window.TvBridge.postMessage(JSON.stringify({
-            type: "domChanged",
-            payload: { changeCount: changeCount },
-            timestamp: Date.now()
-          }));
+          if (domDebounceTimer !== null) {
+            clearTimeout(domDebounceTimer);
+          }
+          domDebounceTimer = setTimeout(function() {
+            var changeCount = mutations.length;
+            window.TvBridge.postMessage(JSON.stringify({
+              type: "domChanged",
+              payload: { changeCount: changeCount },
+              timestamp: Date.now()
+            }));
+            domDebounceTimer = null;
+          }, 500);
         });
         observer.observe(document.body, {
           childList: true,
@@ -192,10 +200,10 @@ class JsBridgeScriptGenerator {
   }
 
   /// 生成CSS注入脚本
-  /// 将适配CSS动态注入到页面中
+  /// 将适配CSS注入到页面中，替换旧的适配样式（非追加）
   /// 参数：cssContent - 要注入的CSS代码
   /// 返回：String - JavaScript代码
-  /// 副作用：无
+  /// 副作用：替换页面中id为tv-adaptation-style的样式元素
   static String generateCssInjectionScript(String cssContent) {
     final String escapedCss = cssContent
         .replaceAll('\\', '\\\\')
@@ -204,12 +212,13 @@ class JsBridgeScriptGenerator {
     return '''
       (function() {
         var style = document.getElementById("tv-adaptation-style");
-        if (!style) {
-          style = document.createElement("style");
-          style.id = "tv-adaptation-style";
-          document.head.appendChild(style);
+        if (style) {
+          style.parentNode.removeChild(style);
         }
-        style.textContent += '$escapedCss';
+        style = document.createElement("style");
+        style.id = "tv-adaptation-style";
+        document.head.appendChild(style);
+        style.textContent = '$escapedCss';
       })();
     ''';
   }

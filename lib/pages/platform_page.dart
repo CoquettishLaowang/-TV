@@ -180,21 +180,23 @@ class _PlatformPageState extends State<PlatformPage> {
   }
 
   /// WebView页面加载完成后注入适配CSS并捕获DOM基准快照
+  /// 使用generateAllPlatformCss一次性生成全部CSS，避免多次runJavaScript导致的不可靠问题
   /// 副作用：向WebView注入CSS代码，捕获初始DOM快照
   void _applyAdaptation() {
     if (_adapter == null) {
       return;
     }
-    _adapter!.applyAdaptation(_webViewController);
 
     final List<String> focusableSelectors = _adapter!.getFocusableSelectors();
-    _cssInjector.injectFocusStyles(_webViewController, focusableSelectors);
+    final String allCss = _cssInjector.generateAllPlatformCss(
+      _adapter!.adaptationConfig,
+      focusableSelectors,
+    );
+    _webViewController.injectCss(allCss);
 
-    _cssInjector.injectLayoutAdjustment(_webViewController);
-
-    _cssInjector.injectVideoPlayerOptimization(_webViewController);
-
-    _captureInitialSnapshot();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _captureInitialSnapshot();
+    });
   }
 
   @override
